@@ -5,310 +5,375 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090513">
-<title>LUXUBU VIP</title>
+<title>LUXUBU V1</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#090513;--panel:#170e27;--pink:#ff36d5;--blue:#4cecff;--purple:#9e50ff;--white:#fff}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,sans-serif;min-height:100vh}
-body:before{content:"";position:fixed;inset:-60%;z-index:-1;background:conic-gradient(#ff35d322,#7d35ff22,#00eaff22,#6affaa22,#ff35d322);animation:spin 16s linear infinite}
+body{margin:0;background:#090513;color:white;font-family:Arial,sans-serif;min-height:100vh}
+:root{--pink:#ff35d3;--blue:#48eaff;--purple:#a34bff}
+body:before{content:"";position:fixed;inset:-60%;z-index:-1;background:conic-gradient(#ff35d322,#9b35ff22,#35eaff22,#55ffb522,#ff35d322);animation:spin 15s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes rainbow{to{background-position:300%}}
-@keyframes glow{0%,100%{box-shadow:0 0 5px #ff35d355,0 0 12px #ff35d322}50%{box-shadow:0 0 12px #45eaff99,0 0 25px #b34aff66}}
-@keyframes borderMove{to{transform:rotate(360deg)}}
-header{position:sticky;top:0;z-index:5;background:#090513ed;border-bottom:1px solid #8e4dba66;display:flex;align-items:center;justify-content:space-between;padding:13px 17px}
-.logo{font-size:27px;font-weight:1000;letter-spacing:3px;background:linear-gradient(90deg,#ff35d3,#a56aff,#45eaff,#6affaa,#ff35d3);background-size:300%;color:transparent;background-clip:text;animation:rainbow 5s linear infinite}
-.sub{font-size:9px;letter-spacing:2px;color:#c5addc}
-.menuBtn{font-size:25px;background:#211333;border:1px solid #bd5aff;border-radius:12px;width:45px;height:43px}
-.wrap{max-width:520px;margin:auto;padding:13px}
-.panel{position:relative;isolation:isolate;background:#170e27ed;border-radius:17px;padding:17px;margin-bottom:14px;border:1px solid transparent;overflow:hidden}
-.panel:before,.led:before{content:"";position:absolute;inset:-2px;z-index:-2;background:conic-gradient(from 0deg,#ff35d3,#8c43ff,#36eaff,#5bffb0,#ffdf55,#ff35d3);animation:spin 5s linear infinite}
-.panel:after{content:"";position:absolute;inset:1px;z-index:-1;background:#170e27;border-radius:16px}
-h2{font-size:16px;color:#ff8be6;margin:0 0 14px}
-h3{font-size:14px;margin:15px 0 9px;color:#dcb5ff}
-label{display:block;color:#cdb9df;font-size:12px;margin:12px 0 6px}
-input,select{width:100%;padding:13px;background:#0c0716;color:white;border:1px solid #704392;border-radius:10px;outline:none}
-input:focus,select:focus{border-color:#4cecff;box-shadow:0 0 12px #4cecff66}
-button{border:0;color:white;font-weight:bold;border-radius:11px;padding:13px;cursor:pointer}
+.logo{font-size:34px;font-weight:1000;letter-spacing:4px;background:linear-gradient(90deg,#ff35d3,#a34bff,#48eaff,#55ffb5,#ff35d3);background-size:300%;color:transparent;background-clip:text;animation:rainbow 5s linear infinite}
+header{height:70px;position:sticky;top:0;z-index:5;background:#090513ee;border-bottom:1px solid #7739a7;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.menuBtn{background:#1b1030;border:1px solid #d04cff;border-radius:12px;color:white;font-size:25px;width:47px;height:45px;box-shadow:0 0 14px #a34bff77}
+.wrap{max-width:520px;margin:auto;padding:14px}
+.panel{position:relative;isolation:isolate;background:#170e27;border:1px solid #8e48bd;border-radius:17px;padding:17px;margin-bottom:15px;box-shadow:0 0 15px #8e48bd22}
+h2{font-size:17px;color:#ff8be7;margin:0 0 15px}
+h3{font-size:14px;color:#d9a6ff}
+p{line-height:1.6}
+.small{font-size:11px;color:#b9a8ca;line-height:1.6}
+label{display:block;color:#d1bce1;font-size:12px;margin:12px 0 6px}
+input,select{width:100%;background:#0b0714;color:white;border:1px solid #71438f;padding:13px;border-radius:10px;outline:none}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 12px #48eaff66}
+button{color:white;font-weight:bold;border:0;border-radius:11px;padding:13px;cursor:pointer}
 button:active{transform:scale(.98)}
-.primary{width:100%;background:linear-gradient(100deg,#a12cff,#f02abf,#603cff);background-size:200%;animation:rainbow 5s linear infinite;box-shadow:0 0 17px #b93cff66}
-.secondary{background:#302044;border:1px solid #9257b7}
-.danger{background:#582039;border:1px solid #e44c8c}
-.led{position:relative;isolation:isolate;border-radius:12px;padding:1px;overflow:hidden}
-.led:after{content:"";position:absolute;inset:2px;border-radius:10px;background:#0c0716;z-index:-1}
-.led input{border:0;background:transparent}
-.led button{width:100%;border-radius:10px}
-.hero{text-align:center;padding:28px 18px}
-.hero h1{font-size:24px}
-.small{font-size:11px;color:#aa98bd;line-height:1.6}
+.primary{background:linear-gradient(100deg,#9c32ff,#ef35c3,#673aff);background-size:200%;animation:rainbow 5s linear infinite;box-shadow:0 0 15px #bb38ff55;width:100%}
+.secondary{background:#302044;border:1px solid #8753a9}
+.danger{background:#542039;border:1px solid #d84d8a}
+.led{position:relative;isolation:isolate;padding:1.5px;border-radius:12px;overflow:hidden}
+.led:before{content:"";position:absolute;inset:-200%;background:conic-gradient(#ff35d3,#a34bff,#48eaff,#55ffb5,#ffdf55,#ff35d3);animation:spin 4s linear infinite}
+.led>*{position:relative}
+.hero{text-align:center;padding:30px 18px}
+.hero h1{font-size:25px}
+.tag{display:inline-block;border:1px solid #a34bff;border-radius:30px;padding:6px 12px;color:#e8b5ff;font-size:10px}
 .hidden{display:none!important}
-.row{display:flex;gap:9px}
-.row>*{flex:1;min-width:0}
-.tag{display:inline-block;border:1px solid #ad54d4;border-radius:30px;padding:5px 10px;color:#e5baff;font-size:10px}
-.notice{background:#261831;border-left:3px solid #ff55d8;padding:11px;border-radius:8px;font-size:11px;line-height:1.6;color:#dfcce9}
-.stat{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.stat div{background:#0d0818;padding:12px;border:1px solid #573775;border-radius:12px}
-.stat strong{display:block;color:#5beaff;font-size:23px}
+.page{display:none}
+.page.active{display:block}
+.back{background:#302044;border:1px solid #a34bff;margin-bottom:15px}
+.menu{position:fixed;inset:0;z-index:20;background:#000a;display:none}
+.menu.open{display:block}
+.drawer{position:absolute;right:0;top:0;height:100%;width:min(85%,340px);overflow:auto;background:#120a20;border-left:1px solid #a34bff;padding:22px;box-shadow:0 0 30px #a34bff66}
+.drawerItem{display:block;width:100%;text-align:left;margin:10px 0;background:#20132f;border:1px solid #8b4bb4;box-shadow:0 0 9px #8b4bb444}
+.auth{max-width:440px;margin:8vh auto;padding:15px}
+.tabs{display:flex;gap:8px;margin:16px 0}
+.tabs button{flex:1;background:#302044}
+.tabs .active{background:linear-gradient(90deg,#9632ff,#e936c4)}
+.msg{font-size:12px;color:#ff8be7;margin-top:10px;line-height:1.5}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat div{background:#0c0715;border:1px solid #69428a;padding:13px;border-radius:12px}
+.stat strong{font-size:23px;color:#55eaff;display:block}
 .stat span{font-size:11px;color:#bba9cf}
-.sensi{display:grid;grid-template-columns:1fr 60px;gap:9px;align-items:center;margin:13px 0}
+.sensi{display:grid;grid-template-columns:1fr 60px;gap:10px;align-items:center;margin:13px 0}
 .sensi label{margin:0 0 6px}
-input[type=range]{padding:0;accent-color:#ef43df}
-.value{padding:9px;text-align:center;border:1px solid #714493;border-radius:9px;color:#63eaff}
+input[type=range]{padding:0;accent-color:#ed43df}
+.value{text-align:center;padding:9px;border:1px solid #714493;border-radius:9px;color:#63eaff}
+.notice{background:#25172e;border-left:3px solid #ed49d4;padding:12px;border-radius:8px;font-size:11px;line-height:1.6;color:#e1d0e9}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-.actions button{font-size:11px}
-#drawer{position:fixed;inset:0;z-index:20;background:#0009}
-.drawerBox{position:absolute;right:0;top:0;height:100%;width:min(82%,330px);background:#130b20;border-left:1px solid #a34aff;padding:22px;box-shadow:0 0 30px #a34aff55}
-.drawerTitle{font-size:24px;font-weight:900;color:#ff7ce7;margin:20px 0}
-.drawerItem{width:100%;text-align:left;margin:7px 0;background:#211331;border:1px solid #77439b}
-.authWrap{max-width:440px;margin:8vh auto;padding:14px}
-.authLogo{text-align:center;font-size:38px;font-weight:1000;letter-spacing:4px;background:linear-gradient(90deg,#ff35d3,#9e50ff,#4cecff,#6affaa,#ff35d3);background-size:300%;color:transparent;background-clip:text;animation:rainbow 5s linear infinite}
-.authTabs{display:flex;gap:8px;margin:15px 0}
-.authTabs button{flex:1;background:#29183c}
-.authTabs .active{background:linear-gradient(90deg,#9d36ff,#ef36c4)}
-.msg{font-size:12px;line-height:1.5;margin-top:10px;color:#ff9cda}
-footer{text-align:center;color:#756587;font-size:11px;padding:22px}
+footer{text-align:center;color:#79658e;font-size:11px;padding:25px}
 </style>
 </head>
 <body>
 
-<!-- AUTH -->
-<section id="authScreen" class="authWrap hidden">
- <div class="authLogo">LUXUBU</div>
- <p class="sub" style="text-align:center">RAINBOW VIP MEMBER SYSTEM</p>
+<!-- ĐĂNG NHẬP -->
+<section id="auth" class="auth hidden">
+ <div style="text-align:center">
+  <div class="logo">LUXUBU</div>
+  <p class="small">RAINBOW VIP MEMBER SYSTEM</p>
+  <span class="tag">VERSION 1.0</span>
+ </div>
  <div class="panel" style="margin-top:25px">
-  <div class="tag">MEMBER ACCESS</div>
-  <div class="authTabs">
-   <button id="tabLogin" class="active" onclick="switchAuth('login')">ĐĂNG NHẬP</button>
-   <button id="tabRegister" onclick="switchAuth('register')">TẠO TÀI KHOẢN</button>
+  <h2 id="authTitle">ĐĂNG NHẬP</h2>
+  <div class="tabs">
+   <button id="loginTab" class="active" onclick="setMode('login')">Đăng nhập</button>
+   <button id="registerTab" onclick="setMode('register')">Tạo tài khoản</button>
   </div>
-  <h2 id="authHeading">Đăng nhập LUXUBU</h2>
   <label>Tên tài khoản</label>
-  <div class="led"><input id="username" maxlength="20" autocomplete="username" placeholder="Ví dụ: quyet123"></div>
+  <div class="led"><input id="username" maxlength="20" placeholder="Tên tài khoản" autocomplete="username"></div>
   <label>Mật khẩu</label>
-  <div class="led"><input id="password" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu"></div>
+  <div class="led"><input id="password" type="password" placeholder="Mật khẩu" autocomplete="current-password"></div>
   <div id="confirmBox" class="hidden">
    <label>Nhập lại mật khẩu</label>
-   <div class="led"><input id="password2" type="password" autocomplete="new-password" placeholder="Xác nhận mật khẩu"></div>
+   <div class="led"><input id="password2" type="password" placeholder="Nhập lại mật khẩu"></div>
   </div>
   <div class="led" style="margin-top:17px">
-   <button id="authSubmit" class="primary" onclick="submitAuth()">ĐĂNG NHẬP</button>
+   <button class="primary" id="authButton" onclick="submitAuth()">ĐĂNG NHẬP</button>
   </div>
   <div id="authMsg" class="msg"></div>
-  <p class="small">Tài khoản LUXUBU riêng. Không dùng tài khoản Google. Hãy giữ mật khẩu an toàn.</p>
+  <p class="small">Tài khoản thành viên LUXUBU. Hãy tự giữ mật khẩu an toàn.</p>
  </div>
 </section>
 
-<!-- MAIN APP -->
-<div id="mainApp" class="hidden">
+<!-- WEBSITE -->
+<div id="website" class="hidden">
 <header>
  <div>
-  <div class="logo">LUXUBU</div>
-  <div class="sub">VIP SENSITIVITY • @lquyet7</div>
+  <div class="logo" style="font-size:26px">LUXUBU</div>
+  <div class="small">VIP SENSITIVITY • V1</div>
  </div>
- <button class="menuBtn" onclick="toggleMenu()">☰</button>
+ <button class="menuBtn" onclick="menuToggle()">☰</button>
 </header>
 
-<div id="drawer" class="hidden" onclick="if(event.target.id==='drawer')toggleMenu()">
- <div class="drawerBox">
-  <button class="secondary" style="float:right" onclick="toggleMenu()">✕</button>
-  <div class="drawerTitle">LUXUBU MENU</div>
-  <div class="notice">Thành viên: <b id="memberName">---</b><br><span class="small">Đã đăng nhập</span></div>
-  <button class="drawerItem" onclick="goSection('generator')">✦ Tạo độ nhạy</button>
-  <button class="drawerItem" onclick="goSection('saved')">▣ Cấu hình đã lưu</button>
-  <button class="drawerItem" onclick="goSection('compare')">⇄ So sánh thiết bị</button>
-  <button class="drawerItem" onclick="goSection('history')">◷ Lịch sử</button>
-  <button class="drawerItem" onclick="goSection('account')">♙ Tài khoản</button>
+<div id="menu" class="menu" onclick="if(event.target.id==='menu')menuToggle()">
+ <div class="drawer">
+  <button class="secondary" style="float:right" onclick="menuToggle()">✕</button>
+  <div class="logo" style="font-size:27px;margin:22px 0">LUXUBU MENU</div>
+  <div class="notice">Thành viên: <b id="member"></b></div>
+  <button class="drawerItem" onclick="go('home')">⌂ TRANG CHỦ</button>
+  <button class="drawerItem" onclick="go('generator')">✦ TẠO ĐỘ NHẠY</button>
+  <button class="drawerItem" onclick="go('saved')">▣ CẤU HÌNH ĐÃ LƯU</button>
+  <button class="drawerItem" onclick="go('compare')">⇄ SO SÁNH THIẾT BỊ</button>
+  <button class="drawerItem" onclick="go('history')">◷ LỊCH SỬ</button>
+  <button class="drawerItem" onclick="go('account')">♙ TÀI KHOẢN</button>
   <button class="drawerItem danger" onclick="logout()">ĐĂNG XUẤT</button>
  </div>
 </div>
 
 <main class="wrap">
- <section class="panel hero">
-  <span class="tag">VERSION 3.0 • MEMBER</span>
-  <h1>FREE FIRE SENSITIVITY</h1>
-  <p class="small">Tạo cấu hình tham khảo theo thiết bị, FPS và phong cách kéo tâm.</p>
-  <button class="primary" onclick="goSection('generator')">BẮT ĐẦU</button>
- </section>
 
- <section id="generator" class="panel">
-  <h2>01 / THIẾT BỊ CỦA BẠN</h2>
+<!-- TRANG CHỦ -->
+<section id="home" class="page active">
+ <div class="panel hero">
+  <span class="tag">VERSION 1.0 • OFFICIAL</span>
+  <h1>WELCOME TO LUXUBU</h1>
+  <p class="small">Hệ thống tạo độ nhạy tham khảo theo thiết bị và phong cách chơi.</p>
+  <div class="led"><button class="primary" onclick="go('generator')">✦ BẮT ĐẦU</button></div>
+  <p class="small" style="margin-top:20px">CREATED BY @lquyet7</p>
+ </div>
+ <div class="panel">
+  <h2>HỆ THỐNG LUXUBU</h2>
+  <div class="stat">
+   <div><strong>V1</strong><span>Phiên bản</span></div>
+   <div><strong>VIP</strong><span>Giao diện Rainbow</span></div>
+  </div>
+ </div>
+</section>
+
+<!-- TẠO ĐỘ NHẠY -->
+<section id="generator" class="page">
+ <button class="back" onclick="go('home')">← TRANG CHỦ</button>
+ <div class="panel">
+  <h2>01 / TẠO ĐỘ NHẠY</h2>
   <label>Hệ điều hành</label>
   <select id="platform" onchange="loadBrands()">
-   <option value="ios">iPhone</option><option value="android">Android</option><option value="ipad">iPad</option>
+   <option value="ios">iPhone</option>
+   <option value="android">Android</option>
+   <option value="ipad">iPad</option>
   </select>
   <div id="brandBox">
-   <label>Hãng điện thoại</label><select id="brand" onchange="loadModels()"></select>
+   <label>Hãng điện thoại</label>
+   <select id="brand" onchange="loadModels()"></select>
   </div>
-  <label>Mẫu máy</label><select id="model" onchange="updateDeviceInfo()"></select>
-  <label>FPS mục tiêu (nếu máy hỗ trợ)</label>
-  <select id="fps"><option value="30">30 FPS</option><option value="60" selected>60 FPS</option><option value="90">90 FPS</option><option value="120">120 FPS</option></select>
+  <label>Thiết bị</label>
+  <select id="model"></select>
+  <label>FPS mục tiêu</label>
+  <select id="fps">
+   <option value="30">30 FPS</option>
+   <option value="60" selected>60 FPS</option>
+   <option value="90">90 FPS</option>
+   <option value="120">120 FPS</option>
+  </select>
   <label>Phong cách chơi</label>
-  <select id="style"><option value="solo">Solo / Kéo tâm nhanh</option><option value="balanced">Cân bằng</option><option value="control">Kiểm soát tâm</option></select>
-  <label>Kiểu kéo tâm</label>
-  <select id="drag"><option value="fast">Kéo nhanh</option><option value="light">Kéo nhẹ</option><option value="steady">Kéo ổn định</option></select>
-  <div class="led" style="margin-top:15px"><button class="primary" onclick="generate()">✦ TẠO ĐỘ NHẠY</button></div>
-  <p class="small">Các mức dưới đây là preset tham khảo, không phải kết quả test vật lý trên mọi thiết bị.</p>
- </section>
+  <select id="style">
+   <option value="solo">Solo / Kéo tâm nhanh</option>
+   <option value="balanced">Cân bằng</option>
+   <option value="control">Kiểm soát ổn định</option>
+  </select>
+  <label>Kiểu kéo</label>
+  <select id="drag">
+   <option value="fast">Kéo nhanh</option>
+   <option value="light">Kéo nhẹ</option>
+   <option value="steady">Kéo ổn định</option>
+  </select>
+  <div class="led" style="margin-top:16px">
+   <button class="primary" onclick="generate()">✦ TẠO ĐỘ NHẠY</button>
+  </div>
+  <p class="small">Số liệu là preset tham khảo, không phải kết quả đo thực nghiệm trên mọi máy.</p>
+ </div>
+</section>
 
- <section id="result" class="panel hidden">
-  <h2 style="text-align:center">✦ LUXUBU CONFIGURATION ✦</h2>
+<!-- KẾT QUẢ -->
+<section id="result" class="page">
+ <button class="back" onclick="go('generator')">← QUAY LẠI</button>
+ <div class="panel">
+  <h2 style="text-align:center">LUXUBU CONFIG</h2>
   <div class="stat">
-   <div><strong id="score">--</strong><span>Điểm ổn định tham khảo</span></div>
-   <div><strong id="fire">--</strong><span>Nút bắn đề xuất (%)</span></div>
+   <div><strong id="score">--</strong><span>Điểm tham khảo</span></div>
+   <div><strong id="fire">--</strong><span>Nút bắn (%)</span></div>
   </div>
   <p class="small" id="deviceSummary"></p>
   <div id="sensiList"></div>
-  <div class="notice" id="checkResult"></div>
+  <div class="notice" id="advice"></div>
   <div class="actions">
-   <button class="secondary" onclick="copyResult()">SAO CHÉP</button>
-   <button class="secondary" onclick="exportImage()">XUẤT ẢNH</button>
+   <button class="secondary" onclick="copyConfig()">SAO CHÉP</button>
+   <button class="secondary" onclick="exportConfig()">XUẤT ẢNH</button>
    <button class="secondary" onclick="saveConfig()">LƯU CẤU HÌNH</button>
    <button class="secondary" onclick="addHistory()">LƯU LỊCH SỬ</button>
   </div>
-  <h3>AI GỢI Ý TINH CHỈNH</h3><div class="notice" id="aiAdvice"></div>
   <h3>TINH CHỈNH</h3>
-  <div class="row">
-   <select id="adjustIndex">
-    <option value="0">Nhìn xung quanh</option><option value="1">Red Dot</option><option value="2">Ống ngắm 2X</option><option value="3">Ống ngắm 4X</option><option value="4">Ống ngắm súng ngắm</option><option value="5">Nhìn tự do</option>
-   </select>
-   <select id="adjustAmount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+  <select id="adjustIndex">
+   <option value="0">Nhìn xung quanh</option>
+   <option value="1">Red Dot</option>
+   <option value="2">Ống ngắm 2X</option>
+   <option value="3">Ống ngắm 4X</option>
+   <option value="4">Ống ngắm súng ngắm</option>
+   <option value="5">Nhìn tự do</option>
+  </select>
+  <select id="adjustAmount" style="margin-top:8px">
+   <option value="1">1 điểm</option><option value="2">2 điểm</option>
+   <option value="3">3 điểm</option><option value="4">4 điểm</option><option value="5">5 điểm</option>
+  </select>
+  <div class="row" style="display:flex;gap:8px;margin-top:9px">
+   <button class="secondary" style="flex:1" onclick="adjust(-1)">− GIẢM</button>
+   <button class="secondary" style="flex:1" onclick="adjust(1)">+ TĂNG</button>
   </div>
-  <div class="row" style="margin-top:9px"><button class="secondary" onclick="adjust(-1)">− GIẢM</button><button class="secondary" onclick="adjust(1)">+ TĂNG</button></div>
-  <h3>KIỂM TRA ĐỘ NHẠY</h3><div id="validation" class="notice"></div>
-  <h3>HƯỚNG DẪN LUYỆN TẬP</h3>
-  <div class="notice">1. Vào phòng tập và thử kéo tâm ở cự ly gần, trung bình.<br>2. Nếu tâm vượt quá mục tiêu, giảm 2 điểm ở thông số liên quan.<br>3. Nếu kéo không tới, tăng 2 điểm.<br>4. Mỗi lần chỉ thay đổi một thông số rồi thử lại.</div>
-  <button class="danger" style="width:100%;margin-top:12px" onclick="resetConfig()">RESET BỘ ĐỘ NHẠY</button>
- </section>
+  <button class="danger" style="width:100%;margin-top:14px" onclick="resetResult()">RESET</button>
+ </div>
+</section>
 
- <section id="saved" class="panel">
+<!-- CẤU HÌNH ĐÃ LƯU -->
+<section id="saved" class="page">
+ <button class="back" onclick="go('home')">← TRANG CHỦ</button>
+ <div class="panel">
   <h2>02 / CẤU HÌNH ĐÃ LƯU</h2>
-  <select id="savedSelect"><option value="">Chọn cấu hình</option></select>
-  <div class="row" style="margin-top:9px"><button class="secondary" onclick="loadSaved()">TẢI</button><button class="danger" onclick="deleteSaved()">XÓA</button></div>
- </section>
+  <select id="savedSelect"></select>
+  <div class="row" style="display:flex;gap:8px;margin-top:10px">
+   <button class="secondary" style="flex:1" onclick="loadSaved()">TẢI</button>
+   <button class="danger" style="flex:1" onclick="deleteSaved()">XÓA</button>
+  </div>
+ </div>
+</section>
 
- <section id="compare" class="panel">
+<!-- SO SÁNH -->
+<section id="compare" class="page">
+ <button class="back" onclick="go('home')">← TRANG CHỦ</button>
+ <div class="panel">
   <h2>03 / SO SÁNH THIẾT BỊ</h2>
-  <label>Thiết bị thứ nhất</label><select id="compareA"></select>
-  <label>Thiết bị thứ hai</label><select id="compareB"></select>
-  <button class="primary" style="margin-top:10px" onclick="compareDevices()">SO SÁNH HAI MÁY</button>
-  <div id="compareResult" class="notice hidden" style="margin-top:12px"></div>
- </section>
+  <label>Thiết bị A</label><select id="deviceA"></select>
+  <label>Thiết bị B</label><select id="deviceB"></select>
+  <button class="primary" style="margin-top:13px" onclick="compare()">SO SÁNH</button>
+  <div id="compareOutput" class="notice hidden" style="margin-top:12px"></div>
+ </div>
+</section>
 
- <section id="history" class="panel">
-  <h2>04 / LỊCH SỬ ĐỘ NHẠY</h2>
-  <div id="historyList" class="small">Chưa có lịch sử.</div>
-  <button class="danger" style="width:100%;margin-top:10px" onclick="clearHistory()">XÓA LỊCH SỬ</button>
- </section>
+<!-- LỊCH SỬ -->
+<section id="history" class="page">
+ <button class="back" onclick="go('home')">← TRANG CHỦ</button>
+ <div class="panel">
+  <h2>04 / LỊCH SỬ</h2>
+  <div id="historyList"></div>
+  <button class="danger" style="width:100%;margin-top:12px" onclick="clearHistory()">XÓA LỊCH SỬ</button>
+ </div>
+</section>
 
- <section id="account" class="panel">
+<!-- TÀI KHOẢN -->
+<section id="account" class="page">
+ <button class="back" onclick="go('home')">← TRANG CHỦ</button>
+ <div class="panel">
   <h2>05 / TÀI KHOẢN THÀNH VIÊN</h2>
-  <div class="notice">Tên tài khoản: <b id="accountName">---</b><br>Hệ thống: LUXUBU MEMBER</div>
-  <button class="danger" style="width:100%;margin-top:12px" onclick="logout()">ĐĂNG XUẤT</button>
- </section>
+  <div class="notice">Tên tài khoản: <b id="accountName"></b><br>Hệ thống: LUXUBU MEMBER</div>
+  <button class="danger" style="width:100%;margin-top:15px" onclick="logout()">ĐĂNG XUẤT</button>
+ </div>
+</section>
 </main>
-<footer>LUXUBU V3 • CREATED BY @lquyet7<br>Preset tham khảo, hãy tự kiểm tra trong game.</footer>
+<footer>LUXUBU V1 • CREATED BY @lquyet7</footer>
 </div>
 
 <script>
-/* SUPABASE PROJECT CONFIG */
+/* SUPABASE */
 const SUPABASE_URL="https://sdlvcbqjmapjaafvudfy.supabase.co";
 const SUPABASE_KEY="sb_publishable_5iwKTC0UEOJZTVwamBeW8A_z00oRvfI";
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
- auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+ auth:{persistSession:true,autoRefreshToken:true}
 });
+const $=id=>document.getElementById(id);
+let mode="login",current=null,historyData=JSON.parse(localStorage.getItem("luxV1History")||"[]");
 
-/* AUTH: username is mapped to a private synthetic email */
-let authMode="login";
-function usernameEmail(u){return u.toLowerCase()+"@luxubu-member.com"}
-function switchAuth(mode){
- authMode=mode;
- $("tabLogin").classList.toggle("active",mode==="login");
- $("tabRegister").classList.toggle("active",mode==="register");
- $("confirmBox").classList.toggle("hidden",mode!=="register");
- $("authHeading").textContent=mode==="login"?"Đăng nhập LUXUBU":"Tạo tài khoản LUXUBU";
- $("authSubmit").textContent=mode==="login"?"ĐĂNG NHẬP":"TẠO TÀI KHOẢN";
+function usernameEmail(name){
+ return name.toLowerCase()+"@luxubu-member.com";
+}
+function setMode(m){
+ mode=m;
+ $("loginTab").classList.toggle("active",m==="login");
+ $("registerTab").classList.toggle("active",m==="register");
+ $("confirmBox").classList.toggle("hidden",m!=="register");
+ $("authTitle").textContent=m==="login"?"ĐĂNG NHẬP":"TẠO TÀI KHOẢN";
+ $("authButton").textContent=m==="login"?"ĐĂNG NHẬP":"ĐĂNG KÝ LUXUBU";
  $("authMsg").textContent="";
- $("password").value="";$("password2").value="";
 }
 async function submitAuth(){
- const username=$("username").value.trim(),password=$("password").value;
- const msg=$("authMsg");msg.textContent="";
- if(!/^[a-zA-Z0-9_]{3,20}$/.test(username)){
-  msg.textContent="Tên tài khoản phải dài 3–20 ký tự, chỉ gồm chữ, số và dấu gạch dưới.";return;
+ let name=$("username").value.trim();
+ let pass=$("password").value;
+ let msg=$("authMsg");
+ if(!/^[a-zA-Z0-9_]{3,20}$/.test(name)){
+  msg.textContent="Tên tài khoản cần 3–20 ký tự, chỉ gồm chữ, số và dấu gạch dưới.";return;
  }
- if(password.length<8){msg.textContent="Mật khẩu cần ít nhất 8 ký tự.";return}
- const email=usernameEmail(username);
- $("authSubmit").disabled=true;
+ if(pass.length<8){msg.textContent="Mật khẩu cần ít nhất 8 ký tự.";return}
+ if(mode==="register"&&pass!==$("password2").value){
+  msg.textContent="Mật khẩu nhập lại không khớp.";return;
+ }
+ $("authButton").disabled=true;
  try{
-  if(authMode==="register"){
-   if(password!==$("password2").value){msg.textContent="Mật khẩu nhập lại không khớp.";return}
+  if(mode==="register"){
    const {data,error}=await sb.auth.signUp({
-    email,password,options:{data:{username}}
+    email:usernameEmail(name),password:pass,
+    options:{data:{username:name}}
    });
    if(error)throw error;
    if(data.session){
-    msg.textContent="Tạo tài khoản thành công!";
-    await enterApp(data.session.user);
+    await enter(data.user);
+    msg.textContent="Đăng ký thành công!";
    }else{
-    msg.textContent="Tài khoản đã gửi yêu cầu tạo. Nếu chưa vào được, hãy kiểm tra Confirm email đã tắt trong Supabase Authentication.";
+    msg.textContent="Đã gửi yêu cầu. Kiểm tra Confirm email đã tắt trong Supabase và thử lại.";
    }
   }else{
-   const {data,error}=await sb.auth.signInWithPassword({email,password});
+   const {data,error}=await sb.auth.signInWithPassword({
+    email:usernameEmail(name),password:pass
+   });
    if(error)throw error;
-   await enterApp(data.user);
+   await enter(data.user);
   }
- }catch(e){msg.textContent=translateError(e.message)}
- finally{$("authSubmit").disabled=false}
+ }catch(e){
+  let m=e.message||"";
+  msg.textContent=/already registered/i.test(m)?"Tên tài khoản đã được sử dụng.":/invalid login/i.test(m)?"Tên tài khoản hoặc mật khẩu không đúng.":m;
+ }finally{
+  $("authButton").disabled=false;
+ }
 }
-function translateError(m){
- if(/already registered|already been registered/i.test(m))return "Tên tài khoản này đã được sử dụng.";
- if(/invalid login credentials/i.test(m))return "Tên tài khoản hoặc mật khẩu không đúng.";
- if(/password should be/i.test(m))return "Mật khẩu chưa đủ mạnh.";
- return "Có lỗi: "+m;
-}
-async function enterApp(user){
- const username=user.user_metadata?.username||user.email?.split("@")[0]||"Member";
- $("memberName").textContent=username;
- $("accountName").textContent=username;
- $("authScreen").classList.add("hidden");
- $("mainApp").classList.remove("hidden");
+async function enter(user){
+ let name=user.user_metadata?.username||user.email.split("@")[0];
+ $("member").textContent=name;
+ $("accountName").textContent=name;
+ $("auth").classList.add("hidden");
+ $("website").classList.remove("hidden");
  loadBrands();populateCompare();refreshSaved();renderHistory();
 }
 async function logout(){
- if(!confirm("M muốn đăng xuất khỏi LUXUBU?"))return;
+ if(!confirm("Đăng xuất khỏi LUXUBU?"))return;
  await sb.auth.signOut();
- $("mainApp").classList.add("hidden");
- $("authScreen").classList.remove("hidden");
- $("drawer").classList.add("hidden");
- $("password").value="";$("password2").value="";
- switchAuth("login");
 }
 sb.auth.onAuthStateChange((event,session)=>{
- if(session?.user)enterApp(session.user);
+ if(session?.user)enter(session.user);
  else if(event==="SIGNED_OUT"){
-  $("mainApp").classList.add("hidden");$("authScreen").classList.remove("hidden");
+  $("website").classList.add("hidden");
+  $("auth").classList.remove("hidden");
  }
 });
-async function initAuth(){
+async function init(){
  const {data:{session}}=await sb.auth.getSession();
- if(session?.user)enterApp(session.user);
- else $("authScreen").classList.remove("hidden");
+ if(session?.user)await enter(session.user);
+ else $("auth").classList.remove("hidden");
+}
+function menuToggle(){$("menu").classList.toggle("open")}
+function go(id){
+ $("menu").classList.remove("open");
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ $(id).classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* APP FUNCTIONS */
-const $=id=>document.getElementById(id);
-const names=["Nhìn xung quanh","Red Dot","Ống ngắm 2X","Ống ngắm 4X","Ống ngắm súng ngắm","Nhìn tự do"];
+/* DEVICE DATA */
 const iphone=[
-["iPhone 7","old"],["iPhone 7 Plus","old"],["iPhone 8","old"],["iPhone 8 Plus","old"],["iPhone X","old"],
-["iPhone XR","standard"],["iPhone XS","standard"],["iPhone XS Max","standard"],
-["iPhone 11","standard"],["iPhone 11 Pro","pro"],["iPhone 11 Pro Max","pro"],
-["iPhone 12","standard"],["iPhone 12 mini","standard"],["iPhone 12 Pro","pro"],["iPhone 12 Pro Max","pro"],
-["iPhone 13","standard"],["iPhone 13 mini","standard"],["iPhone 13 Pro","pro"],["iPhone 13 Pro Max","pro"],
-["iPhone 14","standard"],["iPhone 14 Plus","standard"],["iPhone 14 Pro","pro"],["iPhone 14 Pro Max","pro"],
-["iPhone 15","standard"],["iPhone 15 Plus","standard"],["iPhone 15 Pro","pro"],["iPhone 15 Pro Max","pro"],
-["iPhone 16","standard"],["iPhone 16 Plus","standard"],["iPhone 16 Pro","pro"],["iPhone 16 Pro Max","pro"],
-["iPhone 17","standard"],["iPhone 17 Pro","pro"],["iPhone 17 Pro Max","pro"]
+"iPhone 7","iPhone 7 Plus","iPhone 8","iPhone 8 Plus","iPhone X","iPhone XR","iPhone XS","iPhone XS Max",
+"iPhone 11","iPhone 11 Pro","iPhone 11 Pro Max",
+"iPhone 12","iPhone 12 mini","iPhone 12 Pro","iPhone 12 Pro Max",
+"iPhone 13","iPhone 13 mini","iPhone 13 Pro","iPhone 13 Pro Max",
+"iPhone 14","iPhone 14 Plus","iPhone 14 Pro","iPhone 14 Pro Max",
+"iPhone 15","iPhone 15 Plus","iPhone 15 Pro","iPhone 15 Pro Max",
+"iPhone 16","iPhone 16 Plus","iPhone 16 Pro","iPhone 16 Pro Max",
+"iPhone 17","iPhone 17 Pro","iPhone 17 Pro Max"
 ];
+const ipad=["iPad 9","iPad 10","iPad mini 6","iPad mini 7","iPad Air 4","iPad Air 5","iPad Air M2","iPad Pro 11 M1","iPad Pro 11 M2","iPad Pro 11 M4","iPad Pro 12.9 M1","iPad Pro 12.9 M2","iPad Pro 13 M4"];
 const android={
 Samsung:["Galaxy A05","Galaxy A15","Galaxy A25","Galaxy A35","Galaxy A55","Galaxy S21","Galaxy S22","Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra","Galaxy S25","Galaxy S25 Ultra"],
 Xiaomi:["Redmi 12","Redmi 13","Redmi Note 12","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 14 Pro","Xiaomi 12","Xiaomi 13","Xiaomi 14","Xiaomi 15"],
@@ -325,22 +390,16 @@ Tecno:["Tecno Spark 20","Tecno Spark 30","Tecno Pova 5","Tecno Pova 6","Tecno Ca
 Infinix:["Infinix Hot 30","Infinix Hot 40","Infinix Note 30","Infinix Note 40","Infinix GT 20 Pro"],
 Motorola:["Moto G54","Moto G84","Edge 40","Edge 50 Pro"]
 };
-const ipad=["iPad 9","iPad 10","iPad mini 6","iPad mini 7","iPad Air 4","iPad Air 5","iPad Air M2","iPad Pro 11 M1","iPad Pro 11 M2","iPad Pro 11 M4","iPad Pro 12.9 M1","iPad Pro 12.9 M2","iPad Pro 13 M4"];
-let current=null,history=JSON.parse(localStorage.getItem("luxHistory")||"[]");
-function toggleMenu(){$("drawer").classList.toggle("hidden")}
-function goSection(id){
- $("drawer").classList.add("hidden");
- $(id).scrollIntoView({behavior:"smooth",block:"start"});
-}
 function loadBrands(){
- let p=$("platform").value,b=$("brand");
- $("brandBox").classList.toggle("hidden",p!=="android");b.innerHTML="";
- if(p==="android")Object.keys(android).forEach(x=>b.add(new Option(x,x)));
+ let p=$("platform").value;
+ $("brandBox").classList.toggle("hidden",p!=="android");
+ $("brand").innerHTML="";
+ if(p==="android")Object.keys(android).forEach(x=>$("brand").add(new Option(x,x)));
  loadModels();
 }
 function getModels(){
  let p=$("platform").value;
- if(p==="ios")return iphone.map(x=>x[0]);
+ if(p==="ios")return iphone;
  if(p==="ipad")return ipad;
  return android[$("brand").value]||[];
 }
@@ -348,153 +407,163 @@ function loadModels(){
  $("model").innerHTML="";
  getModels().forEach(x=>$("model").add(new Option(x,x)));
 }
-function updateDeviceInfo(){}
-function tierOf(model,platform){
- if(platform==="ios")return iphone.find(x=>x[0]===model)?.[1]||"standard";
- if(platform==="ipad")return "ipad";
- let s=model.toLowerCase();
- if(/c65|a05|a15|a38|y17|spark|hot 30|m5|g54/.test(s))return "entry";
- if(/ultra|pro|gt |rog|f6|f7|s2[3-5]|x100|magic 6/.test(s))return "high";
+function tier(model){
+ if(iphone.includes(model)){
+  if(/^iPhone (7|8|X )/.test(model))return "old";
+  if(/Pro|XS Max|XR/.test(model))return "pro";
+  return "standard";
+ }
+ if(ipad.includes(model))return "ipad";
+ if(/C65|A05|A15|A38|Y17|Spark|Hot 30|M5|G54/.test(model))return "entry";
+ if(/Ultra|Pro|GT |ROG|F6|F7|S2[3-5]|X100|Magic 6/.test(model))return "high";
  return "mid";
 }
 function profile(t){
- return {old:[174,168,155,140,78,150],standard:[181,176,166,151,85,160],pro:[186,181,171,156,89,165],ipad:[180,176,166,152,86,160],entry:[172,166,154,140,76,150],mid:[179,174,164,150,83,158],high:[185,180,170,155,88,164]}[t]||[179,174,164,150,83,158];
+ return {
+ old:[174,168,155,140,78,150],
+ standard:[181,176,166,151,85,160],
+ pro:[186,181,171,156,89,165],
+ ipad:[180,176,166,152,86,160],
+ entry:[172,166,154,140,76,150],
+ mid:[179,174,164,150,83,158],
+ high:[185,180,170,155,88,164]
+ }[t];
 }
-function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+const names=["Nhìn xung quanh","Red Dot","Ống ngắm 2X","Ống ngắm 4X","Ống ngắm súng ngắm","Nhìn tự do"];
 function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
 function generate(){
- let platform=$("platform").value,model=$("model").value;
+ let model=$("model").value;
  if(!model)return alert("Chọn thiết bị trước!");
- let tier=tierOf(model,platform),base=profile(tier);
- let fps=+$("fps").value,style=$("style").value,drag=$("drag").value;
+ let t=tier(model),fps=+$("fps").value;
+ let style=$("style").value,drag=$("drag").value;
  let mod=style==="solo"?[5,5,4,3,1,3]:style==="control"?[-5,-4,-4,-3,-2,-4]:[0,0,0,0,0,0];
  if(drag==="fast")mod=mod.map((v,i)=>v+(i<4?3:0));
  if(drag==="light")mod=mod.map((v,i)=>v+(i<2?1:0));
  if(drag==="steady")mod=mod.map((v,i)=>v-(i<4?2:0));
  if(fps>=90)mod=mod.map((v,i)=>v-(i<4?2:0));
  if(fps===30)mod=mod.map((v,i)=>v+(i<4?2:0));
- current={platform,model,tier,fps,style,drag,vals:base.map((v,i)=>clamp(v+mod[i]+rand(-2,2),0,200)),fire:clamp((tier==="old"?46:tier==="pro"||tier==="high"?43:45)+rand(-2,2),35,60)};
- showResult();
+ current={model,t,fps,style,drag,vals:profile(t).map((v,i)=>clamp(v+mod[i]+rand(-2,2),0,200)),fire:clamp((t==="old"?46:t==="pro"||t==="high"?43:45)+rand(-2,2),35,60)};
+ showResult();go("result");
 }
-function styleName(s){return {solo:"Solo / kéo nhanh",balanced:"Cân bằng",control:"Kiểm soát"}[s]}
-function dragName(s){return {fast:"Kéo nhanh",light:"Kéo nhẹ",steady:"Kéo ổn định"}[s]}
-function scoreOf(v){
- let p=v.reduce((n,x)=>n+(x>195?12:x>190?7:x<50?10:x<70?4:0),0);
- let spread=Math.max(...v)-Math.min(...v);p+=spread>125?10:spread>110?5:0;
- return clamp(100-p,55,99);
+function score(){
+ let v=current.vals;
+ return clamp(100-v.reduce((n,x)=>n+(x>190?7:x<65?4:0),0),55,99);
 }
 function showResult(){
- $("result").classList.remove("hidden");
- $("score").textContent=scoreOf(current.vals)+"/100";
+ $("score").textContent=score()+"/100";
  $("fire").textContent=current.fire+"%";
- $("deviceSummary").textContent=current.model+" • "+current.fps+" FPS • "+styleName(current.style)+" • "+dragName(current.drag);
+ $("deviceSummary").textContent=current.model+" • "+current.fps+" FPS";
  $("sensiList").innerHTML="";
  current.vals.forEach((v,i)=>{
   let d=document.createElement("div");d.className="sensi";
-  let left=document.createElement("div"),lab=document.createElement("label"),range=document.createElement("input"),val=document.createElement("div");
-  lab.textContent=names[i];range.type="range";range.min=0;range.max=200;range.value=v;val.className="value";val.textContent=v;
-  range.oninput=()=>{current.vals[i]=+range.value;val.textContent=range.value;updateAnalysis()};
-  left.append(lab,range);d.append(left,val);$("sensiList").append(d);
+  let left=document.createElement("div");
+  let l=document.createElement("label");l.textContent=names[i];
+  let r=document.createElement("input");r.type="range";r.min=0;r.max=200;r.value=v;
+  let val=document.createElement("div");val.className="value";val.textContent=v;
+  r.oninput=()=>{current.vals[i]=+r.value;val.textContent=r.value;updateAdvice()};
+  left.append(l,r);d.append(left,val);$("sensiList").append(d);
  });
- updateAnalysis();$("result").scrollIntoView({behavior:"smooth"});
+ updateAdvice();
 }
-function updateAnalysis(){
- let v=current.vals,issues=[];
- v.forEach((x,i)=>{if(x>190)issues.push(names[i]+" khá cao");if(x<65)issues.push(names[i]+" khá thấp")});
- $("checkResult").textContent=issues.length?"Cần chú ý: "+issues.join("; ")+". Đây là cảnh báo theo ngưỡng tham khảo.":"Chưa phát hiện mức quá cao hoặc quá thấp theo ngưỡng tham khảo.";
- $("validation").textContent=issues.length?issues.join(" • "):"Các thông số đang nằm trong khoảng tham khảo. Cần thử thực tế để đánh giá.";
- $("aiAdvice").textContent=issues.length?"Nếu tâm bị văng hoặc kéo không tới, hãy chỉnh từng mục 2 điểm rồi thử lại.":"Bộ thông số ở mức tham khảo tương đối cân bằng. Hãy thử trong phòng tập và thay đổi từng mục một.";
- $("score").textContent=scoreOf(v)+"/100";
+function updateAdvice(){
+ let high=current.vals.filter(x=>x>190).length;
+ $("advice").textContent=high?"Có thông số khá cao. Nếu tâm bị văng quá mục tiêu, thử giảm từng mục 2 điểm.":"Các thông số nằm trong khoảng preset tham khảo. Hãy thử thực tế và điều chỉnh từng mục.";
 }
 function adjust(dir){
- if(!current)return alert("Tạo độ nhạy trước!");
- let i=+$("adjustIndex").value,n=+$("adjustAmount").value;
- current.vals[i]=clamp(current.vals[i]+dir*n,0,200);showResult();
-}
-function configText(){
- return "LUXUBU VIP SENSITIVITY\nThiết bị: "+current.model+"\nFPS: "+current.fps+"\nPhong cách: "+styleName(current.style)+"\nKiểu kéo: "+dragName(current.drag)+"\n"+names.map((n,i)=>n+": "+current.vals[i]).join("\n")+"\nNút bắn: "+current.fire+"%\nCreated by @lquyet7";
-}
-async function copyResult(){
  if(!current)return;
- try{await navigator.clipboard.writeText(configText());alert("Đã sao chép!")}catch(e){prompt("Sao chép cấu hình:",configText())}
+ let i=+$("adjustIndex").value,n=+$("adjustAmount").value;
+ current.vals[i]=clamp(current.vals[i]+dir*n,0,200);
+ showResult();
 }
-function savedList(){return JSON.parse(localStorage.getItem("luxSaved")||"[]")}
+function resetResult(){if(confirm("Reset kết quả hiện tại?")){current=null;go("generator")}}
+function configText(){
+ return "LUXUBU V1\n"+current.model+"\n"+names.map((n,i)=>n+": "+current.vals[i]).join("\n")+"\nNút bắn: "+current.fire+"%\nCreated by @lquyet7";
+}
+async function copyConfig(){
+ try{await navigator.clipboard.writeText(configText());alert("Đã sao chép!")}
+ catch(e){prompt("Sao chép:",configText())}
+}
+function getSaved(){return JSON.parse(localStorage.getItem("luxV1Saved")||"[]")}
 function saveConfig(){
- if(!current)return alert("Chưa có cấu hình!");
- let a=savedList();a.unshift({...current,id:Date.now(),title:current.model+" - "+new Date().toLocaleString("vi-VN")});
- localStorage.setItem("luxSaved",JSON.stringify(a));refreshSaved();alert("Đã lưu cấu hình!");
+ if(!current)return;
+ let a=getSaved();
+ a.unshift({...current,id:Date.now(),title:current.model+" - "+new Date().toLocaleString("vi-VN")});
+ localStorage.setItem("luxV1Saved",JSON.stringify(a));refreshSaved();alert("Đã lưu!");
 }
 function refreshSaved(){
- let s=$("savedSelect");if(!s)return;s.innerHTML='<option value="">Chọn cấu hình</option>';
- savedList().forEach(x=>s.add(new Option(x.title,x.id)));
+ $("savedSelect").innerHTML="";
+ getSaved().forEach(x=>$("savedSelect").add(new Option(x.title,x.id)));
+ if(!$("savedSelect").options.length)$("savedSelect").add(new Option("Chưa có cấu hình",""));
 }
 function loadSaved(){
- let item=savedList().find(x=>x.id===+$("savedSelect").value);
- if(!item)return alert("Chọn cấu hình!");current={...item,vals:item.vals.slice()};showResult();
+ let item=getSaved().find(x=>x.id===+$("savedSelect").value);
+ if(!item)return alert("Chọn cấu hình!");
+ current={...item,vals:item.vals.slice()};showResult();go("result");
 }
 function deleteSaved(){
- let id=+$("savedSelect").value;if(!id)return alert("Chọn cấu hình!");
- if(!confirm("M chắc chắn muốn xóa cấu hình này?"))return;
- localStorage.setItem("luxSaved",JSON.stringify(savedList().filter(x=>x.id!==id)));refreshSaved();
-}
-function resetConfig(){
- if(!confirm("Reset bộ độ nhạy hiện tại?"))return;
- current=null;$("result").classList.add("hidden");
+ let id=+$("savedSelect").value;if(!id)return;
+ if(!confirm("Xóa cấu hình này?"))return;
+ localStorage.setItem("luxV1Saved",JSON.stringify(getSaved().filter(x=>x.id!==id)));refreshSaved();
 }
 function addHistory(){
- if(!current)return alert("Chưa có cấu hình!");
- history.unshift({date:new Date().toLocaleString("vi-VN"),model:current.model,text:configText()});
- history=history.slice(0,30);localStorage.setItem("luxHistory",JSON.stringify(history));renderHistory();alert("Đã lưu lịch sử!");
+ if(!current)return;
+ historyData.unshift({model:current.model,date:new Date().toLocaleString("vi-VN"),text:configText()});
+ historyData=historyData.slice(0,30);
+ localStorage.setItem("luxV1History",JSON.stringify(historyData));renderHistory();alert("Đã lưu lịch sử!");
 }
 function renderHistory(){
- let el=$("historyList");if(!el)return;el.innerHTML="";
- if(!history.length){el.textContent="Chưa có lịch sử.";return}
- history.forEach((x,i)=>{
-  let d=document.createElement("div");d.className="notice";d.style.margin="8px 0";
-  let b=document.createElement("button");b.className="secondary";b.textContent="XEM";b.style.marginTop="8px";b.onclick=()=>alert(history[i].text);
+ let el=$("historyList");el.innerHTML="";
+ if(!historyData.length){el.textContent="Chưa có lịch sử.";return}
+ historyData.forEach((x,i)=>{
+  let d=document.createElement("div");d.className="notice";d.style.margin="9px 0";
+  let b=document.createElement("button");b.className="secondary";b.textContent="XEM";b.style.marginTop="8px";b.onclick=()=>alert(historyData[i].text);
   let t=document.createElement("div");t.textContent=x.model+" • "+x.date;d.append(t,b);el.append(d);
  });
 }
 function clearHistory(){
  if(!confirm("Xóa toàn bộ lịch sử?"))return;
- history=[];localStorage.setItem("luxHistory","[]");renderHistory();
+ historyData=[];localStorage.setItem("luxV1History","[]");renderHistory();
 }
 function populateCompare(){
- ["compareA","compareB"].forEach(id=>{
+ ["deviceA","deviceB"].forEach(id=>{
   let s=$(id);s.innerHTML="";
-  [...iphone.map(x=>x[0]),...ipad,...Object.values(android).flat()].forEach(x=>s.add(new Option(x,x)));
+  [...iphone,...ipad,...Object.values(android).flat()].forEach(x=>s.add(new Option(x,x)));
  });
- $("compareA").value="iPhone 7 Plus";$("compareB").value="iPhone 13 Pro Max";
+ $("deviceA").value="iPhone 7 Plus";$("deviceB").value="iPhone 13 Pro Max";
 }
-function tierForName(name){
- let i=iphone.find(x=>x[0]===name);if(i)return i[1];
- if(ipad.includes(name))return "ipad";
- return tierOf(name,"android");
+function compare(){
+ let a=$("deviceA").value,b=$("deviceB").value;
+ let pa=profile(tier(a)),pb=profile(tier(b));
+ let out=document.createElement("div");
+ let title=document.createElement("b");title.textContent=a+" / "+b;
+ let p=document.createElement("p");
+ p.textContent="Preset A: "+pa.join(" / ")+"\nPreset B: "+pb.join(" / ");
+ let note=document.createElement("small");note.textContent="Chênh lệch tham khảo: "+pa.map((v,i)=>Math.abs(v-pb[i])).join(" / ")+" • Không phải kết quả đo trực tiếp.";
+ out.append(title,p,note);
+ $("compareOutput").innerHTML="";$("compareOutput").append(out);$("compareOutput").classList.remove("hidden");
 }
-function compareDevices(){
- let a=$("compareA").value,b=$("compareB").value,pa=profile(tierForName(a)),pb=profile(tierForName(b));
- let el=$("compareResult");el.innerHTML="";
- let title=document.createElement("b");title.textContent=a+" vs "+b;
- let p=document.createElement("p");p.textContent="Hồ sơ A: "+pa.join(" / ")+" | Hồ sơ B: "+pb.join(" / ");
- let note=document.createElement("small");note.textContent="Chênh lệch hồ sơ: "+pa.map((v,i)=>Math.abs(v-pb[i])).join(" / ")+" • Chỉ là so sánh preset tham khảo, không phải đo trực tiếp.";
- el.append(title,p,note);el.classList.remove("hidden");
-}
-function exportImage(){
+function exportConfig(){
  if(!current)return;
- let c=document.createElement("canvas");c.width=900;c.height=1100;let x=c.getContext("2d");
- let g=x.createLinearGradient(0,0,900,1100);g.addColorStop(0,"#10051e");g.addColorStop(.5,"#251044");g.addColorStop(1,"#080612");x.fillStyle=g;x.fillRect(0,0,900,1100);
- x.strokeStyle="#e84cff";x.lineWidth=5;x.strokeRect(25,25,850,1050);
- x.textAlign="center";x.fillStyle="#ff67dc";x.font="bold 78px Arial";x.fillText("LUXUBU",450,135);
- x.fillStyle="#bceeff";x.font="28px Arial";x.fillText("VIP SENSITIVITY",450,190);
- x.fillStyle="#fff";x.font="bold 31px Arial";x.fillText(current.model,450,270);
- x.font="24px Arial";x.fillText(current.fps+" FPS • "+styleName(current.style),450,320);
- x.textAlign="left";x.font="29px Arial";
- names.forEach((n,i)=>{x.fillStyle="#e9caff";x.fillText(n,100,410+i*75);x.textAlign="right";x.fillStyle="#65eaff";x.fillText(current.vals[i],790,410+i*75);x.textAlign="left"});
- x.textAlign="center";x.fillStyle="#ff8bdd";x.font="bold 34px Arial";x.fillText("FIRE BUTTON "+current.fire+"%",450,920);
- x.fillStyle="#c9b4dc";x.font="22px Arial";x.fillText("CREATED BY @lquyet7",450,1000);
- let a=document.createElement("a");a.download="LUXUBU-config.png";a.href=c.toDataURL("image/png");a.click();
+ let c=document.createElement("canvas");c.width=900;c.height=1050;
+ let x=c.getContext("2d");
+ let g=x.createLinearGradient(0,0,900,1050);
+ g.addColorStop(0,"#10051e");g.addColorStop(.5,"#291044");g.addColorStop(1,"#080612");
+ x.fillStyle=g;x.fillRect(0,0,900,1050);
+ x.strokeStyle="#e84cff";x.lineWidth=5;x.strokeRect(25,25,850,1000);
+ x.textAlign="center";x.fillStyle="#ff67dc";x.font="bold 80px Arial";x.fillText("LUXUBU",450,130);
+ x.fillStyle="#bceeff";x.font="30px Arial";x.fillText("VERSION 1.0",450,190);
+ x.fillStyle="white";x.font="bold 32px Arial";x.fillText(current.model,450,280);
+ x.textAlign="left";x.font="28px Arial";
+ names.forEach((n,i)=>{
+  x.fillStyle="#e9caff";x.fillText(n,90,390+i*75);
+  x.textAlign="right";x.fillStyle="#65eaff";x.fillText(current.vals[i],800,390+i*75);x.textAlign="left";
+ });
+ x.textAlign="center";x.fillStyle="#ff8bdd";x.font="bold 34px Arial";x.fillText("FIRE BUTTON "+current.fire+"%",450,900);
+ x.font="23px Arial";x.fillText("@lquyet7",450,970);
+ let a=document.createElement("a");a.download="LUXUBU-V1.png";a.href=c.toDataURL();a.click();
 }
-initAuth();
+init();
 </script>
 </body>
 </html>
