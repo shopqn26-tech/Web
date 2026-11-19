@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080514">
-<title>LUXUBU V4.1 — Smart Random</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080514">
+<title>LUXUBU V4.2 — Solo Duel Engine</title>
 <style>
-:root{--bg:#080514;--panel:#120b22;--panel2:#190e2d;--line:#59348a;--pink:#f23cff;--purple:#914cff;--cyan:#38e9ff;--gold:#ffd166;--green:#4df2ad;--muted:#b9adcb;--ease:cubic-bezier(.22,1,.36,1)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:radial-gradient(ellipse at 15% 0%,#31105a 0,transparent 34%),radial-gradient(ellipse at 90% 20%,#25104b 0,transparent 32%),radial-gradient(ellipse at 50% 100%,#101e45 0,transparent 40%),var(--bg);overflow-x:hidden}
+:root{--bg:#080514;--panel:#120b22;--pink:#f23cff;--purple:#914cff;--cyan:#38e9ff;--gold:#ffd166;--green:#4df2ad;--muted:#b9adcb;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:radial-gradient(ellipse at 15% 0%,#31105a 0,transparent 34%),radial-gradient(ellipse at 90% 20%,#25104b 0,transparent 32%),radial-gradient(ellipse at 50% 100%,#101e45 0,transparent 40%),var(--bg);overflow-x:hidden}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;background-image:radial-gradient(1px 1px at 10% 20%,#fff 99%,transparent),radial-gradient(1px 1px at 70% 12%,#b8a5ff 99%,transparent),radial-gradient(2px 2px at 40% 70%,#fff 99%,transparent),radial-gradient(1px 1px at 85% 80%,#fff 99%,transparent);background-size:180px 180px,230px 230px,290px 290px,210px 210px;animation:stars 35s linear infinite}
 @keyframes stars{to{transform:translateY(-90px)}}
 .app{width:min(100% - 24px,1120px);margin:auto;padding:18px 0 42px;position:relative;z-index:1}
@@ -15,15 +19,18 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;pa
 .nav{display:flex;gap:7px;flex-wrap:wrap}
 .nav button,.menu-btn{border:1px solid #59377f;color:#eee;background:#1b1030;border-radius:12px;padding:10px 13px;font-weight:800;cursor:pointer}
 .nav button.active,.nav button:hover,.menu-btn:hover{background:linear-gradient(100deg,#bd25ef,#653cff);border-color:#d98cff}
-.menu-btn{display:none}.page{display:none}
+.menu-btn{display:none}
+.page{display:none}
 .page.active{display:block;animation:enter .35s var(--ease)}
 @keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .hero,.panel{background:linear-gradient(145deg,#1a1030ed,#0e091cf2);border:1px solid #68418d;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 14px 36px #0007,0 0 24px #963cff18}
 .hero{text-align:center;padding:34px 22px;overflow:hidden;position:relative}
 .eyebrow{font-size:11px;letter-spacing:3px;font-weight:900;color:var(--cyan)}
 h1{font-size:clamp(34px,7vw,58px);line-height:1.03;margin:13px 0;background:linear-gradient(90deg,#fff,#f45bdf,#8c9dff);background-clip:text;color:transparent}
-h2{font-size:21px;margin:0 0 8px}h3{font-size:16px;margin:0 0 8px}
-p{color:var(--muted);line-height:1.65;margin:0}.sub{max-width:720px;margin:auto}
+h2{font-size:21px;margin:0 0 8px}
+h3{font-size:16px;margin:0 0 8px}
+p{color:var(--muted);line-height:1.65;margin:0}
+.sub{max-width:720px;margin:auto}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;justify-content:center}
 .btn{border:0;border-radius:13px;padding:14px 18px;font-weight:900;letter-spacing:.4px;cursor:pointer;color:white;background:linear-gradient(100deg,#d72df1,#703dff);box-shadow:0 8px 25px #a52cff55;transition:.2s}
 .btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
@@ -73,11 +80,15 @@ footer{text-align:center;color:#817393;font-size:11px;margin:28px 0 0}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:760px){
 .app{width:min(100% - 18px,560px);padding-top:9px}
-header{top:5px}.nav{display:none}.menu-btn{display:block}
+header{top:5px}
+.nav{display:none}
+.menu-btn{display:block}
 .layout{grid-template-columns:1fr}
 .grid3,.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.hero{padding:28px 16px}.panel{padding:17px}
-.training{grid-template-columns:1fr}.brand{font-size:22px}
+.hero{padding:28px 16px}
+.panel{padding:17px}
+.training{grid-template-columns:1fr}
+.brand{font-size:22px}
 }
 @media(min-width:761px){.menu-btn{display:none}}
 </style>
@@ -85,7 +96,7 @@ header{top:5px}.nav{display:none}.menu-btn{display:block}
 <body>
 <div class="app">
 <header>
-<div class="brand">LUXUBU <small>V4.1 • SMART RANDOM</small></div>
+<div class="brand">LUXUBU <small>V4.2 • SOLO DUEL ENGINE</small></div>
 <nav class="nav">
 <button class="active" data-page="home" onclick="go('home')">⌂ Trang chủ</button>
 <button data-page="creator" onclick="go('creator')">⚡ Tạo độ nhạy</button>
@@ -108,7 +119,7 @@ header{top:5px}.nav{display:none}.menu-btn{display:block}
 <div class="hero">
 <div class="eyebrow">NEXT GENERATION SENSITIVITY CALIBRATION</div>
 <h1>KÉO TÂM<br>CHUẨN KÈO</h1>
-<p class="sub">LUXUBU V4.0 tạo bộ thông số khởi điểm theo thiết bị, FPS và thói quen kéo. Có công cụ tinh chỉnh, lưu cấu hình và bài tập cải thiện kỹ năng.</p>
+<p class="sub">LUXUBU V4.2 tối ưu preset khởi điểm cho solo 1v1: kéo tâm nhanh, bắt mục tiêu gọn và giữ độ ổn định theo từng thiết bị.</p>
 <div class="actions">
 <button class="btn" onclick="go('creator')">⚡ TẠO CẤU HÌNH VIP</button>
 <button class="btn alt" onclick="go('training')">◎ LUYỆN KỸ NĂNG</button>
@@ -131,9 +142,10 @@ header{top:5px}.nav{display:none}.menu-btn{display:block}
 <section id="creator" class="page">
 <div class="layout">
 <div class="panel">
-<div class="eyebrow">LUXUBU V4.1 SMART RANDOM ENGINE</div>
+<div class="eyebrow">LUXUBU V4.2 SOLO DUEL ENGINE</div>
 <h2>Tạo độ nhạy</h2>
 <p>Chọn đúng thiết bị và cảm giác kéo thường dùng.</p>
+
 <div class="field">
 <label>Hệ điều hành</label>
 <select id="os" onchange="fillDevices()">
@@ -148,7 +160,9 @@ header{top:5px}.nav{display:none}.menu-btn{display:block}
 <div class="grid2">
 <div class="field">
 <label>FPS mục tiêu</label>
-<select id="fps"><option>30</option><option>60</option><option selected>90</option><option>120</option></select>
+<select id="fps">
+<option>30</option><option>60</option><option selected>90</option><option>120</option>
+</select>
 </div>
 <div class="field">
 <label>Phong cách</label>
@@ -179,19 +193,19 @@ header{top:5px}.nav{display:none}.menu-btn{display:block}
 </div>
 <div class="feature" style="margin:13px 0">
 <b>🔥 Nút bắn tự động</b>
-<span>Hệ thống tự đề xuất kích thước theo nhóm thiết bị, phong cách và kiểu kéo. Bạn không cần nhập phần trăm thủ công.</span>
+<span>Hệ thống tự đề xuất kích thước theo nhóm thiết bị, phong cách và kiểu kéo.</span>
 </div>
 <div class="toolbar">
-<button class="btn full" onclick="generate()">✦ TẠO ĐỘ NHẠY 120–200</button>
+<button class="btn full" onclick="generate()">✦ TẠO ĐỘ NHẠY SOLO KÈO</button>
 <button class="btn alt" onclick="resetCreator()">ĐẶT LẠI</button>
 </div>
-<p class="hint">Preset là điểm khởi đầu để test, không thể bảo đảm headshot. Web không đọc được cảm ứng thật, DPI thật hay dữ liệu trận đấu; không cần đổi DPI/con trỏ iOS để dùng độ nhạy trong game.</p>
+<p class="hint">Preset là điểm khởi đầu để test, không thể bảo đảm headshot. Web không đọc được cảm ứng thật hay dữ liệu trận đấu.</p>
 </div>
 
 <div id="output" class="panel hidden">
 <div class="result-head">
 <div><div class="eyebrow">YOUR CALIBRATED STARTING PRESET</div><h2>Kết quả cấu hình</h2></div>
-<span class="pill">PRESET V4.0</span>
+<span class="pill">SOLO DUEL V4.2</span>
 </div>
 <p id="deviceLine"></p>
 <div id="stats" class="result-grid"></div>
@@ -223,7 +237,7 @@ header{top:5px}.nav{display:none}.menu-btn{display:block}
 <button class="btn alt" onclick="saveCurrent()">Lưu cấu hình</button>
 <button class="btn alt" onclick="exportCurrent()">Xuất TXT</button>
 </div>
-<p class="hint">Đây là thông số khởi điểm mang tính tham khảo, không phải cấu hình được Garena chứng nhận. Hãy test và thay đổi từng 2–3 điểm mỗi lần.</p>
+<p class="hint">Thông số chỉ là preset tham khảo. Hãy test và thay đổi từng 2–3 điểm mỗi lần.</p>
 </div>
 </div>
 </section>
@@ -253,7 +267,7 @@ header{top:5px}.nav{display:none}.menu-btn{display:block}
 </div>
 </section>
 
-<footer>© LUXUBU V4.1 SMART RANDOM • Fan-made sensitivity helper • Không liên kết với Garena</footer>
+<footer>© LUXUBU V4.2 SOLO DUEL ENGINE • Fan-made sensitivity helper • Không liên kết với Garena</footer>
 </div>
 <div id="toast" class="toast"></div>
 
@@ -262,6 +276,7 @@ const deviceGroups={
 ios:['iPhone 7','iPhone 7 Plus','iPhone 8','iPhone 8 Plus','iPhone X','iPhone XR','iPhone XS','iPhone XS Max','iPhone 11','iPhone 11 Pro','iPhone 11 Pro Max','iPhone 12','iPhone 12 mini','iPhone 12 Pro','iPhone 12 Pro Max','iPhone 13','iPhone 13 mini','iPhone 13 Pro','iPhone 13 Pro Max','iPhone 14','iPhone 14 Plus','iPhone 14 Pro','iPhone 14 Pro Max','iPhone 15','iPhone 15 Plus','iPhone 15 Pro','iPhone 15 Pro Max','iPhone 16','iPhone 16 Plus','iPhone 16 Pro','iPhone 16 Pro Max','iPhone 17','iPhone 17 Pro','iPhone 17 Pro Max','iPad'],
 android:['Samsung Galaxy A series','Samsung Galaxy S series','Samsung Galaxy Note series','Xiaomi Redmi series','Xiaomi POCO series','Xiaomi flagship','OPPO A series','OPPO Reno series','OPPO Find series','Vivo Y series','Vivo V series','Vivo X series','Realme C series','Realme Number series','Realme GT series','OnePlus','Google Pixel','Android khác']
 };
+
 const labels=['Nhìn xung quanh','Hồng tâm','Ống ngắm 2x','Ống ngắm 4x','Súng ngắm','Camera tự do'];
 let current=null;
 
@@ -270,7 +285,7 @@ function toast(s){
  $('toast').textContent=s;
  $('toast').classList.add('show');
  clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2200)
+ window.toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2200);
 }
 function go(id){
  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
@@ -278,14 +293,16 @@ function go(id){
  $('mobileNav').classList.add('hidden');
  if(id==='history')renderHistory();
  if(id==='training')renderLessons();
- window.scrollTo({top:0,behavior:'smooth'})
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 function toggleMenu(){$('mobileNav').classList.toggle('hidden')}
+
 function fillDevices(){
  const os=$('os').value;
  $('device').innerHTML=deviceGroups[os].map(d=>`<option>${d}</option>`).join('');
- if(os==='ios')$('device').value='iPhone 13 Pro Max'
+ if(os==='ios')$('device').value='iPhone 13 Pro Max';
 }
+
 function tierFor(name,os){
  if(os==='ios'){
   if(name==='iPad')return 5;
@@ -305,24 +322,26 @@ function tierFor(name,os){
  if(n.includes('poco')||n.includes('reno')||n.includes('v series')||n.includes('number'))return 3;
  return 2;
 }
+
 const deviceProfiles={
-ios:[
-[147,158,148,132,59,154],
-[151,162,151,136,61,158],
-[155,166,155,140,63,162],
-[158,169,158,143,65,165],
-[160,170,159,144,66,167],
-[161,171,160,145,67,168]
-],
-android:[
-[150,160,151,136,61,157],
-[153,163,153,138,62,160],
-[156,166,155,140,64,163],
-[159,168,157,142,65,165],
-[161,170,159,144,67,167],
-[161,170,159,144,67,167]
-]
+ ios:[
+  [147,158,148,132,59,154],
+  [151,162,151,136,61,158],
+  [155,166,155,140,63,162],
+  [158,169,158,143,65,165],
+  [160,170,159,144,66,167],
+  [161,171,160,145,67,168]
+ ],
+ android:[
+  [150,160,151,136,61,157],
+  [153,163,153,138,62,160],
+  [156,166,155,140,64,163],
+  [159,168,157,142,65,165],
+  [161,170,159,144,67,167],
+  [161,170,159,144,67,167]
+ ]
 };
+
 function getDeviceBase(os,device,tier){
  let base=deviceProfiles[os][tier].slice();
  if(os==='ios' && device==='iPhone 13 Pro Max')base=[159,169,158,143,65,166];
@@ -333,6 +352,7 @@ function getDeviceBase(os,device,tier){
  if(os==='ios' && device==='iPad')base=[150,160,153,140,66,156];
  return base;
 }
+
 function autoFireSize(os,device,tier,style,drag,priority){
  let screenClass=os==='ios'?(device==='iPad'?2:(/Pro Max|Plus/.test(device)?1:0)):(tier>=4?1:0);
  let size=screenClass===2?44:screenClass===1?46:48;
@@ -344,6 +364,7 @@ function autoFireSize(os,device,tier,style,drag,priority){
  if(priority==='range')size-=1;
  return Math.max(42,Math.min(52,size));
 }
+
 function generate(){
  const os=$('os').value;
  const device=$('device').value;
@@ -354,71 +375,93 @@ function generate(){
  const priority=$('priority').value;
  const base=getDeviceBase(os,device,tier);
 
- const ranges=[[140,195],[145,200],[135,190],[125,180],[120,165],[135,190]];
- const tierShift=[-5,-3,-1,1,3,4][tier] || 0;
- const fpsShift={30:-3,60:-1,90:1,120:3}[fps] || 0;
+ // Ưu tiên solo 1v1, giữ thông số theo từng máy.
+ // Súng ngắm có thang riêng, không ép lên cùng dải 120–200.
+ const limits=[[135,195],[145,200],[130,190],[115,180],[40,95],[130,195]];
+ const duelBias=[2,7,3,0,-2,2];
+
+ const fpsVec={
+  30:[-2,-2,-1,-1,0,-1],
+  60:[-1,-1,0,0,0,0],
+  90:[0,0,0,0,0,0],
+  120:[1,1,1,1,0,1]
+ }[fps]||[0,0,0,0,0,0];
+
  const styleVec={
   balanced:[0,0,0,0,0,0],
-  rush:[5,5,3,0,-2,3],
-  control:[-4,-4,-2,4,3,-3]
+  rush:[2,2,1,-1,-1,1],
+  control:[-2,-3,-2,2,2,-2]
  }[style];
+
  const dragVec={
-  light:[2,2,1,0,0,1],
-  steady:[-3,-3,-2,1,1,-2],
-  fast:[4,5,3,0,-2,3]
+  light:[1,1,1,0,0,1],
+  steady:[-2,-2,-1,1,1,-1],
+  fast:[3,3,2,0,-1,2]
  }[drag];
+
  const priorityVec={
-  head:[2,5,3,-2,-3,2],
+  head:[1,3,2,-1,-2,1],
   mixed:[0,0,0,0,0,0],
-  range:[-3,-3,-1,4,5,-2]
+  range:[-2,-3,-1,3,4,-1]
  }[priority];
+
  const randomInt=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
 
  const vals=base.map((v,i)=>{
-  const normalized=(v-145)/30;
-  const [lo,hi]=ranges[i];
-  const anchor=lo+(hi-lo)*(0.42+normalized*0.20)+tierShift+fpsShift*([1,.8,.65,.45,.2,.5][i]);
-  const variation=randomInt(-5,5);
-  const adjusted=anchor+styleVec[i]+dragVec[i]+priorityVec[i]+variation;
-  return Math.max(120,Math.min(200,Math.round(adjusted)));
+  const jitter=randomInt(-4,4);
+  const adjusted=v+duelBias[i]+fpsVec[i]+styleVec[i]+dragVec[i]+priorityVec[i]+jitter;
+  const [lo,hi]=limits[i];
+  return Math.max(lo,Math.min(hi,Math.round(adjusted)));
  });
 
  const fire=autoFireSize(os,device,tier,style,drag,priority);
- const profile={balanced:'Cân bằng',rush:'Rush / áp sát',control:'Kiểm soát'}[style];
+ const profile={
+  balanced:'SOLO • Cân bằng',
+  rush:'SOLO • Áp sát nhanh',
+  control:'SOLO • Kiểm soát'
+ }[style];
+
  const tips=style==='rush'
- ?['Ưu tiên vuốt ngắn, dứt khoát; không kéo quá dài.','Nếu thường xuyên lố đầu, giảm Hồng tâm 2 điểm rồi test lại.','Giữ tâm ngang ngực trước khi vuốt lên.']
+ ?['Ưu tiên kéo ngắn và dứt khoát khi áp sát; tránh vuốt quá dài.','Nếu tâm vượt qua đầu, dùng hiệu chỉnh “Tâm kéo quá đầu” một lần rồi test lại.','Giữ tâm ngang ngực trước pha kéo; đừng tăng đồng loạt mọi ống ngắm.']
  :style==='control'
- ?['Đặt tâm trước khi ngắm và bắn, giữ nhịp vuốt đều.','Nếu lia chậm, thử tăng Nhìn xung quanh 2 điểm.','Ưu tiên kiểm soát 2x/4x, không tăng đồng loạt.']
- :['Test 5 phút với cùng một loại súng và khoảng cách.','Nếu lố đầu liên tục, giảm Hồng tâm 2 điểm.','Nếu kéo không tới, tăng Hồng tâm 2 điểm rồi test lại.'];
+ ?['Đặt tâm trước khi bắn, vuốt đều và dừng đúng nhịp.','Nếu lia ngang chậm, tăng riêng Nhìn xung quanh 2 điểm sau khi test.','Giữ 4x và Súng ngắm thấp hơn nhóm tâm gần để tránh rung.']
+ :['Preset ưu tiên solo 1v1: Hồng tâm và 2x được nhấn nhẹ để hỗ trợ kéo gần.','Test 5 phút với cùng súng và khoảng cách trước khi đổi số.','Lố đầu: giảm Hồng tâm 2 điểm; kéo hụt: tăng Hồng tâm 2 điểm.'];
 
  const previous=current?.values?.join(',');
- if(previous && previous===vals.join(','))vals[1]=Math.min(200,vals[1]+1);
+ if(previous && previous===vals.join(','))vals[1]=Math.min(limits[1][1],vals[1]+1);
 
  current={device,os,fps,style,drag,priority,values:vals,fire,profile,tips,date:new Date().toLocaleString('vi-VN')};
  renderCurrent();
- toast('Đã tạo bộ số ngẫu nhiên thông minh 120–200');
+ toast('Đã tạo preset SOLO KÈO theo thiết bị');
 }
+
 function renderCurrent(){
  if(!current)return;
  $('deviceLine').textContent=`${current.device} • ${current.os.toUpperCase()} • ${current.fps} FPS`;
- $('stats').innerHTML=current.values.map((v,i)=>`<div class="stat"><span>${labels[i]}</span><strong>${v}</strong><small>/ 200</small></div>`).join('');
+ $('stats').innerHTML=current.values.map((v,i)=>`<div class="stat"><span>${labels[i]}</span><strong>${v}</strong><small>/ ${i===4?100:200}</small></div>`).join('');
  $('fireValue').textContent=current.fire+'%';
  $('profileName').textContent=current.profile;
  $('tips').innerHTML=(current.tips||['Test trong sân tập và chỉ đổi 2–3 điểm mỗi lần.']).map(t=>`<li>${t}</li>`).join('');
  $('output').classList.remove('hidden');
 }
+
 function applyFeedback(){
  if(!current)return toast('Hãy tạo cấu hình trước');
- const f=$('feedback').value,v=current.values.slice();
- if(f==='overshoot'){v[1]-=3;v[2]-=2;v[3]-=1;}
+ const f=$('feedback').value;
+ const v=current.values.slice();
+
+ if(f==='overshoot'){v[1]-=3;v[2]-=2;v[0]-=1;}
  if(f==='undershoot'){v[1]+=3;v[2]+=2;}
- if(f==='slow'){v[0]+=2;v[1]+=1;v[5]+=1;}
- if(f==='shaky'){v[2]-=2;v[3]-=2;v[4]-=1;}
- current.values=v.map(x=>Math.max(120,Math.min(200,x)));
+ if(f==='slow'){v[0]+=2;v[5]+=1;v[1]+=1;}
+ if(f==='shaky'){v[2]-=2;v[3]-=2;v[4]-=2;}
+
+ const limits=[[135,195],[145,200],[130,190],[115,180],[40,95],[130,195]];
+ current.values=v.map((x,i)=>Math.max(limits[i][0],Math.min(limits[i][1],x)));
  current.date=new Date().toLocaleString('vi-VN');
  renderCurrent();
- toast('Đã áp dụng chỉnh nhẹ — hãy test lại');
+ toast('Đã tinh chỉnh theo lỗi — test lại trong sân tập');
 }
+
 function resetCreator(){
  $('os').value='ios';
  fillDevices();
@@ -431,100 +474,154 @@ function resetCreator(){
  current=null;
  toast('Đã đặt lại bộ tạo');
 }
+
 function presetText(x){
- return `LUXUBU V4.1 — ${x.device}\n${x.os.toUpperCase()} • ${x.fps} FPS • ${x.profile}\n${x.values.map((v,i)=>labels[i]+': '+v).join('\n')}\nNút bắn: ${x.fire}%\nLưu ý: preset tham khảo, cần test thực tế.`
+ return `LUXUBU V4.2 SOLO DUEL — ${x.device}
+${x.os.toUpperCase()} • ${x.fps} FPS • ${x.profile}
+${x.values.map((v,i)=>labels[i]+': '+v).join('\n')}
+Nút bắn: ${x.fire}%
+Lưu ý: preset tham khảo, cần test thực tế.`;
 }
+
 function copyCurrent(){
  if(!current)return;
- navigator.clipboard?.writeText(presetText(current)).then(()=>toast('Đã sao chép!')).catch(()=>fallbackCopy(presetText(current)))||fallbackCopy(presetText(current))
+ navigator.clipboard?.writeText(presetText(current))
+ .then(()=>toast('Đã sao chép!'))
+ .catch(()=>fallbackCopy(presetText(current)))||fallbackCopy(presetText(current));
 }
+
 function fallbackCopy(t){
  let a=document.createElement('textarea');
- a.value=t;document.body.append(a);a.select();
- document.execCommand('copy');a.remove();toast('Đã sao chép!')
+ a.value=t;
+ document.body.append(a);
+ a.select();
+ document.execCommand('copy');
+ a.remove();
+ toast('Đã sao chép!');
 }
+
 function getHistory(){
- try{return JSON.parse(localStorage.getItem('luxubuV4History')||'[]')}catch{return []}
+ try{return JSON.parse(localStorage.getItem('luxubuV4History')||'[]')}
+ catch{return []}
 }
+
 function saveCurrent(){
  if(!current)return;
  let a=getHistory();
  a.unshift({...current,id:Date.now()});
  localStorage.setItem('luxubuV4History',JSON.stringify(a.slice(0,30)));
- toast('Đã lưu cấu hình')
+ toast('Đã lưu cấu hình');
 }
+
 function download(name,data,type){
  let u=URL.createObjectURL(new Blob([data],{type}));
  let a=document.createElement('a');
- a.href=u;a.download=name;a.click();
- setTimeout(()=>URL.revokeObjectURL(u),1000)
+ a.href=u;
+ a.download=name;
+ a.click();
+ setTimeout(()=>URL.revokeObjectURL(u),1000);
 }
+
 function exportCurrent(){
- if(current)download('luxubu-v4-preset.txt',presetText(current),'text/plain;charset=utf-8')
+ if(current)download('luxubu-v4-preset.txt',presetText(current),'text/plain;charset=utf-8');
 }
+
 function exportHistory(){
  let a=getHistory();
  if(!a.length)return toast('Chưa có cấu hình để xuất');
- download('luxubu-v4-history.json',JSON.stringify(a,null,2),'application/json')
+ download('luxubu-v4-history.json',JSON.stringify(a,null,2),'application/json');
 }
+
 function renderHistory(){
  let a=getHistory();
- $('historyList').innerHTML=a.length?a.map(x=>`<div class="history-item"><b>${x.device}</b><p>${x.date} • ${x.os.toUpperCase()} • ${x.fps} FPS • Nút bắn ${x.fire}%</p><p>${x.values.map((v,i)=>labels[i]+': '+v).join(' • ')}</p><div class="toolbar"><button class="btn alt" onclick="loadPreset(${x.id})">Nạp lại</button><button class="btn alt" onclick="copyPreset(${x.id})">Sao chép</button><button class="btn danger" onclick="deletePreset(${x.id})">Xóa</button></div></div>`).join(''):'<p style="margin-top:14px">Chưa có cấu hình nào được lưu.</p>'
+ $('historyList').innerHTML=a.length?a.map(x=>`
+ <div class="history-item">
+ <b>${x.device}</b>
+ <p>${x.date} • ${x.os.toUpperCase()} • ${x.fps} FPS • Nút bắn ${x.fire}%</p>
+ <p>${x.values.map((v,i)=>labels[i]+': '+v).join(' • ')}</p>
+ <div class="toolbar">
+ <button class="btn alt" onclick="loadPreset(${x.id})">Nạp lại</button>
+ <button class="btn alt" onclick="copyPreset(${x.id})">Sao chép</button>
+ <button class="btn danger" onclick="deletePreset(${x.id})">Xóa</button>
+ </div>
+ </div>`).join(''):'<p style="margin-top:14px">Chưa có cấu hình nào được lưu.</p>';
 }
+
 function loadPreset(id){
  let x=getHistory().find(v=>v.id===id);
  if(!x)return;
  current=x;
- $('os').value=x.os;fillDevices();
+ $('os').value=x.os;
+ fillDevices();
  $('device').value=x.device;
  $('fps').value=x.fps;
  $('style').value=x.style;
  $('drag').value=x.drag;
  $('priority').value=x.priority;
  current={...x};
- renderCurrent();go('creator');toast('Đã nạp lại cấu hình')
+ renderCurrent();
+ go('creator');
+ toast('Đã nạp lại cấu hình');
 }
+
 function copyPreset(id){
  let x=getHistory().find(v=>v.id===id);
- if(x)fallbackCopy(presetText(x))
+ if(x)fallbackCopy(presetText(x));
 }
+
 function deletePreset(id){
  localStorage.setItem('luxubuV4History',JSON.stringify(getHistory().filter(x=>x.id!==id)));
- renderHistory();toast('Đã xóa cấu hình')
+ renderHistory();
+ toast('Đã xóa cấu hình');
 }
+
 function clearHistory(){
  if(confirm('Xóa toàn bộ lịch sử cấu hình?')){
   localStorage.removeItem('luxubuV4History');
-  renderHistory();toast('Đã xóa lịch sử')
+  renderHistory();
+  toast('Đã xóa lịch sử');
  }
 }
+
 const lessonData=[
-['Kéo tâm lên đầu','Đặt tâm ngang ngực, vuốt ngắn lên vùng đầu trong 2 phút.'],
-['One Tap','Bắn từng phát, ưu tiên nhịp dừng và độ chính xác.'],
-['Drag Headshot','Luyện vuốt ngắn, đều tay; tránh kéo quá dài.'],
-['Tracking','Theo tâm vào mục tiêu đang di chuyển mà không giật tay.'],
-['Movement','Kết hợp di chuyển ngang, dừng nhịp và đặt tâm trước.'],
-['Solo 1v1','Áp dụng trong trận tập; xem lại lỗi lố tâm hoặc hụt tâm.']
+ ['Kéo tâm lên đầu','Đặt tâm ngang ngực, vuốt ngắn lên vùng đầu trong 2 phút.'],
+ ['One Tap','Bắn từng phát, ưu tiên nhịp dừng và độ chính xác.'],
+ ['Drag Headshot','Luyện vuốt ngắn, đều tay; tránh kéo quá dài.'],
+ ['Tracking','Theo tâm vào mục tiêu đang di chuyển mà không giật tay.'],
+ ['Movement','Kết hợp di chuyển ngang, dừng nhịp và đặt tâm trước.'],
+ ['Solo 1v1','Áp dụng trong trận tập; xem lại lỗi lố tâm hoặc hụt tâm.']
 ];
+
 function renderLessons(){
  let done=JSON.parse(localStorage.getItem('luxubuLessons')||'[]');
- $('lessons').innerHTML=lessonData.map((l,i)=>`<div class="lesson"><div class="num">BÀI ${String(i+1).padStart(2,'0')}</div><h3>${l[0]}</h3><p>${l[1]}</p><label><input type="checkbox" ${done.includes(i)?'checked':''} onchange="toggleLesson(${i},this.checked)"> Đã hoàn thành</label></div>`).join('');
- updateProgress(done)
+ $('lessons').innerHTML=lessonData.map((l,i)=>`
+ <div class="lesson">
+ <div class="num">BÀI ${String(i+1).padStart(2,'0')}</div>
+ <h3>${l[0]}</h3>
+ <p>${l[1]}</p>
+ <label><input type="checkbox" ${done.includes(i)?'checked':''} onchange="toggleLesson(${i},this.checked)"> Đã hoàn thành</label>
+ </div>`).join('');
+ updateProgress(done);
 }
+
 function toggleLesson(i,on){
  let a=JSON.parse(localStorage.getItem('luxubuLessons')||'[]');
  a=on?[...new Set([...a,i])]:a.filter(x=>x!==i);
  localStorage.setItem('luxubuLessons',JSON.stringify(a));
- updateProgress(a)
+ updateProgress(a);
 }
+
 function updateProgress(a){
  $('progressBar').style.width=(a.length/6*100)+'%';
- $('progressText').textContent=`${a.length}/6 bài hoàn thành`
+ $('progressText').textContent=`${a.length}/6 bài hoàn thành`;
 }
+
 function resetLessons(){
  localStorage.removeItem('luxubuLessons');
- renderLessons();toast('Đã đặt lại tiến độ')
+ renderLessons();
+ toast('Đã đặt lại tiến độ');
 }
+
 fillDevices();
 renderLessons();
 </script>
