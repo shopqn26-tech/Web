@@ -1,629 +1,239 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080514">
-<title>LUXUBU V4.2 — Solo Duel Engine</title>
+<title>LUXUBU V4.3 - Smart Solo Aim</title>
 <style>
-:root{--bg:#080514;--panel:#120b22;--pink:#f23cff;--purple:#914cff;--cyan:#38e9ff;--gold:#ffd166;--green:#4df2ad;--muted:#b9adcb;--ease:cubic-bezier(.22,1,.36,1)}
+:root{--bg:#080514;--panel:#140c25;--pink:#f23cff;--purple:#914cff;--cyan:#38e9ff;--gold:#ffd166}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:radial-gradient(ellipse at 15% 0%,#31105a 0,transparent 34%),radial-gradient(ellipse at 90% 20%,#25104b 0,transparent 32%),radial-gradient(ellipse at 50% 100%,#101e45 0,transparent 40%),var(--bg);overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;background-image:radial-gradient(1px 1px at 10% 20%,#fff 99%,transparent),radial-gradient(1px 1px at 70% 12%,#b8a5ff 99%,transparent),radial-gradient(2px 2px at 40% 70%,#fff 99%,transparent),radial-gradient(1px 1px at 85% 80%,#fff 99%,transparent);background-size:180px 180px,230px 230px,290px 290px,210px 210px;animation:stars 35s linear infinite}
-@keyframes stars{to{transform:translateY(-90px)}}
-.app{width:min(100% - 24px,1120px);margin:auto;padding:18px 0 42px;position:relative;z-index:1}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border:1px solid #7547a5;border-radius:19px;background:#100a20df;backdrop-filter:blur(14px);box-shadow:0 8px 30px #0008;position:sticky;top:8px;z-index:20}
-.brand{font-size:25px;font-weight:1000;letter-spacing:2px;background:linear-gradient(90deg,var(--pink),#fff,var(--cyan));background-clip:text;color:transparent}
-.brand small{display:block;font-size:9px;letter-spacing:3px;color:#cbb9ed}
-.nav{display:flex;gap:7px;flex-wrap:wrap}
-.nav button,.menu-btn{border:1px solid #59377f;color:#eee;background:#1b1030;border-radius:12px;padding:10px 13px;font-weight:800;cursor:pointer}
-.nav button.active,.nav button:hover,.menu-btn:hover{background:linear-gradient(100deg,#bd25ef,#653cff);border-color:#d98cff}
-.menu-btn{display:none}
-.page{display:none}
-.page.active{display:block;animation:enter .35s var(--ease)}
-@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.hero,.panel{background:linear-gradient(145deg,#1a1030ed,#0e091cf2);border:1px solid #68418d;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 14px 36px #0007,0 0 24px #963cff18}
-.hero{text-align:center;padding:34px 22px;overflow:hidden;position:relative}
-.eyebrow{font-size:11px;letter-spacing:3px;font-weight:900;color:var(--cyan)}
-h1{font-size:clamp(34px,7vw,58px);line-height:1.03;margin:13px 0;background:linear-gradient(90deg,#fff,#f45bdf,#8c9dff);background-clip:text;color:transparent}
-h2{font-size:21px;margin:0 0 8px}
-h3{font-size:16px;margin:0 0 8px}
-p{color:var(--muted);line-height:1.65;margin:0}
-.sub{max-width:720px;margin:auto}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;justify-content:center}
-.btn{border:0;border-radius:13px;padding:14px 18px;font-weight:900;letter-spacing:.4px;cursor:pointer;color:white;background:linear-gradient(100deg,#d72df1,#703dff);box-shadow:0 8px 25px #a52cff55;transition:.2s}
-.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
-.btn.alt{background:#1c1230;border:1px solid #76519d;box-shadow:none}
-.btn.danger{background:#361326;border:1px solid #a94770;box-shadow:none}
-.btn.full{width:100%}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.feature{padding:15px;border:1px solid #513471;background:#110b20;border-radius:15px}
-.feature b{display:block;margin-bottom:5px}
-.feature span{font-size:12px;color:var(--muted);line-height:1.5}
-.layout{display:grid;grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);gap:16px;align-items:start}
-.field{margin:13px 0}
-.field label{display:block;color:#e3d7f1;font-size:13px;font-weight:800;margin-bottom:7px}
-.field select,.field input{width:100%;padding:12px 13px;border-radius:11px;border:1px solid #624182;background:#0d0819;color:white;outline:none}
-.field select:focus,.field input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #38e9ff20}
-.hint{font-size:11px;color:#a99abf;margin-top:6px;line-height:1.5}
-.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}
-.stat{background:linear-gradient(145deg,#170e2b,#0c0816);border:1px solid #533278;border-radius:14px;padding:13px;text-align:center}
-.stat span{display:block;font-size:11px;color:#cbbce0;min-height:28px}
+body{margin:0;color:white;font-family:Arial,sans-serif;background:radial-gradient(ellipse at 15% 0%,#35105b,transparent 40%),radial-gradient(ellipse at 90% 20%,#25104b,transparent 35%),#080514;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(1px 1px at 10% 20%,white 99%,transparent),radial-gradient(2px 2px at 70% 60%,#b8a5ff 99%,transparent);background-size:180px 180px,240px 240px;opacity:.4;animation:stars 35s linear infinite}
+@keyframes stars{to{transform:translateY(-100px)}}
+.app{width:min(100% - 22px,1000px);margin:auto;position:relative;padding:15px 0 35px}
+header,.panel,.hero{background:#130b22eF;border:1px solid #68418d;border-radius:20px;box-shadow:0 12px 35px #0008}
+header{padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:5px;z-index:5}
+.brand{font-size:25px;font-weight:1000;letter-spacing:2px;color:#f45bdf}
+.brand small{display:block;font-size:9px;color:#cbb9ed;letter-spacing:3px}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+button{cursor:pointer;color:white;font-weight:bold;border:0;border-radius:12px;padding:12px 15px;background:linear-gradient(100deg,#d72df1,#703dff)}
+nav button,.secondary{background:#211332;border:1px solid #68418d}
+button:hover{filter:brightness(1.2);transform:translateY(-1px)}
+.page{display:none}.page.active{display:block}
+.hero,.panel{padding:22px;margin-top:17px}
+.hero{text-align:center;padding:40px 20px}
+.eyebrow{font-size:11px;letter-spacing:3px;color:var(--cyan);font-weight:bold}
+h1{font-size:clamp(38px,8vw,60px);line-height:1.05;margin:15px 0;background:linear-gradient(90deg,white,#f45bdf,#8c9dff);background-clip:text;color:transparent}
+h2{font-size:21px;margin:8px 0}
+p{color:#b9adcb;line-height:1.6}
+.actions,.toolbar{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:15px;align-items:start}
+.field{margin:14px 0}
+label{display:block;font-size:13px;font-weight:bold;margin-bottom:7px}
+select{width:100%;padding:13px;border-radius:11px;border:1px solid #68418d;background:#0d0819;color:white}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{padding:13px 8px;text-align:center;border:1px solid #58367c;border-radius:13px;background:#100a1f}
+.stat span{display:block;font-size:11px;color:#cbbce0;min-height:27px}
 .stat strong{font-size:27px;color:var(--cyan)}
 .stat:nth-child(2) strong,.stat:nth-child(5) strong{color:#f45bdf}
-.stat small{display:block;color:#8f80a7;font-size:10px}
-.result-head{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
-.pill{font-size:10px;font-weight:900;padding:5px 9px;border-radius:30px;background:#123b32;color:var(--green);border:1px solid #267b60}
-.rec-card{margin-top:13px;padding:15px;border:1px solid #b28a39;border-radius:15px;background:linear-gradient(120deg,#30200d,#21122d)}
-.rec-card strong{font-size:25px;color:var(--gold)}
-.rec-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.tip{margin-top:12px;padding:14px;border:1px solid #533278;border-radius:14px;background:#110b20}
-.tip li{color:#d5c9e5;margin:6px 0;font-size:13px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.toolbar .btn{flex:1 1 120px;padding:11px}
-.hidden{display:none!important}
-.training{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:15px}
-.lesson{padding:15px;border:1px solid #58367c;background:#100a1f;border-radius:15px}
-.lesson .num{color:var(--cyan);font-weight:1000;font-size:12px}
-.lesson p{font-size:12px;margin:5px 0 10px}
-.lesson label{font-size:12px;color:#d9cde9}
+.stat small{display:block;color:#9383aa;font-size:10px}
+.result-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pill{font-size:10px;color:#4df2ad;border:1px solid #267b60;border-radius:30px;padding:6px}
+.rec{margin-top:13px;padding:15px;border:1px solid #b28a39;border-radius:14px;background:#30200d}
+.rec strong{font-size:27px;color:var(--gold)}
+.tip{margin-top:13px;padding:14px;border:1px solid #533278;border-radius:13px;background:#100a1f}
+.tip li{font-size:13px;color:#d5c9e5;margin:7px 0}
+.full{width:100%}.hidden{display:none!important}
+.feature{padding:14px;border:1px solid #513471;background:#100a1f;border-radius:14px;margin-top:10px}
+.feature span{font-size:12px;color:#b9adcb}
+.training{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}
+.lesson{padding:14px;border:1px solid #58367c;border-radius:14px;background:#100a1f}
+.lesson p{font-size:12px}
 .lesson input{accent-color:#d93df5}
 .progress{height:9px;background:#302143;border-radius:20px;overflow:hidden;margin:12px 0}
-.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .3s}
-.history-item{padding:14px;border:1px solid #553578;background:#100a1f;border-radius:14px;margin-top:10px}
-.history-item p{font-size:12px;margin:5px 0}
-.history-item .toolbar{margin-top:9px}
-footer{text-align:center;color:#817393;font-size:11px;margin:28px 0 0}
-.toast{position:fixed;z-index:50;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#211331;border:1px solid var(--gold);border-radius:30px;padding:11px 17px;font-size:13px;transition:.25s;max-width:90vw;text-align:center}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:760px){
-.app{width:min(100% - 18px,560px);padding-top:9px}
-header{top:5px}
-.nav{display:none}
-.menu-btn{display:block}
-.layout{grid-template-columns:1fr}
-.grid3,.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.hero{padding:28px 16px}
-.panel{padding:17px}
-.training{grid-template-columns:1fr}
-.brand{font-size:22px}
-}
-@media(min-width:761px){.menu-btn{display:none}}
+.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan))}
+.history-item{padding:13px;border:1px solid #553578;background:#100a1f;border-radius:13px;margin-top:10px}
+.history-item p{font-size:12px}
+footer{text-align:center;color:#817393;font-size:11px;margin:25px 0}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#241331;border:1px solid var(--gold);padding:11px 18px;border-radius:30px;opacity:0;transition:.2s;z-index:20}
+#toast.show{opacity:1}
+@media(max-width:720px){.layout{grid-template-columns:1fr}nav{display:none}.training{grid-template-columns:1fr}.hero{padding:30px 14px}.panel{padding:17px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
-<div class="brand">LUXUBU <small>V4.2 • SOLO DUEL ENGINE</small></div>
-<nav class="nav">
-<button class="active" data-page="home" onclick="go('home')">⌂ Trang chủ</button>
-<button data-page="creator" onclick="go('creator')">⚡ Tạo độ nhạy</button>
-<button data-page="training" onclick="go('training')">◎ Luyện kỹ năng</button>
-<button data-page="history" onclick="go('history')">★ Lịch sử</button>
+<div class="brand">LUXUBU<small>V4.3 • SMART SOLO AIM</small></div>
+<nav>
+<button onclick="go('home')">Trang chủ</button>
+<button onclick="go('creator')">Tạo độ nhạy</button>
+<button onclick="go('training')">Luyện tập</button>
+<button onclick="go('history')">Lịch sử</button>
 </nav>
-<button class="menu-btn" onclick="toggleMenu()">☰ MENU</button>
 </header>
-
-<div id="mobileNav" class="panel hidden" style="margin-top:8px;padding:10px">
-<div class="grid2">
-<button class="btn alt" onclick="go('home')">Trang chủ</button>
-<button class="btn alt" onclick="go('creator')">Tạo độ nhạy</button>
-<button class="btn alt" onclick="go('training')">Luyện kỹ năng</button>
-<button class="btn alt" onclick="go('history')">Lịch sử</button>
-</div>
-</div>
 
 <section id="home" class="page active">
 <div class="hero">
-<div class="eyebrow">NEXT GENERATION SENSITIVITY CALIBRATION</div>
+<div class="eyebrow">NEXT GENERATION SENSITIVITY</div>
 <h1>KÉO TÂM<br>CHUẨN KÈO</h1>
-<p class="sub">LUXUBU V4.2 tối ưu preset khởi điểm cho solo 1v1: kéo tâm nhanh, bắt mục tiêu gọn và giữ độ ổn định theo từng thiết bị.</p>
+<p>LUXUBU V4.3 — Smart Solo Aim Engine. Tạo preset theo thiết bị, phong cách kéo và FPS.</p>
 <div class="actions">
-<button class="btn" onclick="go('creator')">⚡ TẠO CẤU HÌNH VIP</button>
-<button class="btn alt" onclick="go('training')">◎ LUYỆN KỸ NĂNG</button>
+<button onclick="go('creator')">⚡ BẮT ĐẦU</button>
+<button class="secondary" onclick="go('training')">LUYỆN KỸ NĂNG</button>
 </div>
 </div>
-<div class="grid2">
-<div class="panel">
-<h2>⚙️ CALIBRATION ENGINE</h2>
-<div class="feature"><b>Thiết bị & FPS</b><span>Chọn model cụ thể và mức FPS mục tiêu để tạo bộ số khởi điểm phù hợp hơn.</span></div>
-<div class="feature" style="margin-top:10px"><b>Không thổi phồng thông số</b><span>Không có công thức nào bảo đảm auto headshot. Hãy dùng kết quả làm điểm bắt đầu rồi kiểm tra trong sân tập.</span></div>
-</div>
-<div class="panel">
-<h2>🎯 AIM TRAINING</h2>
-<div class="feature"><b>6 bài luyện có checklist</b><span>Kéo tâm, one tap, tracking, di chuyển và solo 1v1. Theo dõi tiến độ ngay trên web.</span></div>
-<button class="btn alt full" style="margin-top:12px" onclick="go('training')">MỞ KHU LUYỆN TẬP</button>
-</div>
+<div class="grid">
+<div class="panel"><h2>⚙ SMART AIM ENGINE</h2><div class="feature"><b>Thiết bị riêng biệt</b><br><span>Thông số thay đổi theo dòng máy.</span></div><div class="feature"><b>Random thông minh</b><br><span>Biến thiên có giới hạn, không lặp cứng một bộ số.</span></div></div>
+<div class="panel"><h2>🎯 SOLO TRAINING</h2><div class="feature"><b>Luyện kéo tâm</b><br><span>Checklist giúp theo dõi tiến độ tập luyện.</span></div></div>
 </div>
 </section>
 
 <section id="creator" class="page">
 <div class="layout">
 <div class="panel">
-<div class="eyebrow">LUXUBU V4.2 SOLO DUEL ENGINE</div>
-<h2>Tạo độ nhạy</h2>
-<p>Chọn đúng thiết bị và cảm giác kéo thường dùng.</p>
-
-<div class="field">
-<label>Hệ điều hành</label>
-<select id="os" onchange="fillDevices()">
-<option value="ios">iOS</option>
-<option value="android">Android</option>
-</select>
+<div class="eyebrow">V4.3 SMART SOLO AIM</div><h2>Tạo độ nhạy</h2>
+<div class="field"><label>Hệ điều hành</label><select id="os" onchange="fillDevices()"><option value="ios">iOS</option><option value="android">Android</option></select></div>
+<div class="field"><label>Thiết bị</label><select id="device"></select></div>
+<div class="grid">
+<div class="field"><label>FPS</label><select id="fps"><option>30</option><option>60</option><option selected>90</option><option>120</option></select></div>
+<div class="field"><label>Phong cách</label><select id="style"><option value="balanced">Cân bằng</option><option value="rush">Rush áp sát</option><option value="control">Kiểm soát</option></select></div>
+<div class="field"><label>Kiểu kéo</label><select id="drag"><option value="light">Kéo nhẹ</option><option value="steady">Ổn định</option><option value="fast">Kéo nhanh</option></select></div>
+<div class="field"><label>Ưu tiên</label><select id="priority"><option value="head">Kéo tâm gần</option><option value="mixed" selected>Cân bằng</option><option value="range">Tầm xa</option></select></div>
 </div>
-<div class="field">
-<label>Thiết bị</label>
-<select id="device"></select>
+<div class="feature"><b>Nút bắn tự động</b><span> Đề xuất kích thước theo thiết bị và phong cách.</span></div>
+<div class="toolbar"><button class="full" onclick="generate()">✦ TẠO ĐỘ NHẠY</button><button class="secondary" onclick="resetCreator()">ĐẶT LẠI</button></div>
+<p style="font-size:11px">Preset tham khảo để thử nghiệm trong sân tập. Không đảm bảo auto headshot.</p>
 </div>
-<div class="grid2">
-<div class="field">
-<label>FPS mục tiêu</label>
-<select id="fps">
-<option>30</option><option>60</option><option selected>90</option><option>120</option>
-</select>
-</div>
-<div class="field">
-<label>Phong cách</label>
-<select id="style">
-<option value="balanced">Cân bằng</option>
-<option value="rush">Rush / áp sát</option>
-<option value="control">Kiểm soát</option>
-</select>
-</div>
-</div>
-<div class="grid2">
-<div class="field">
-<label>Kiểu kéo</label>
-<select id="drag">
-<option value="light">Kéo nhẹ</option>
-<option value="steady">Kéo ổn định</option>
-<option value="fast">Kéo nhanh</option>
-</select>
-</div>
-<div class="field">
-<label>Độ ưu tiên</label>
-<select id="priority">
-<option value="head">Kéo tâm gần</option>
-<option value="mixed" selected>Cân bằng mọi tầm</option>
-<option value="range">Kiểm soát tầm xa</option>
-</select>
-</div>
-</div>
-<div class="feature" style="margin:13px 0">
-<b>🔥 Nút bắn tự động</b>
-<span>Hệ thống tự đề xuất kích thước theo nhóm thiết bị, phong cách và kiểu kéo.</span>
-</div>
-<div class="toolbar">
-<button class="btn full" onclick="generate()">✦ TẠO ĐỘ NHẠY SOLO KÈO</button>
-<button class="btn alt" onclick="resetCreator()">ĐẶT LẠI</button>
-</div>
-<p class="hint">Preset là điểm khởi đầu để test, không thể bảo đảm headshot. Web không đọc được cảm ứng thật hay dữ liệu trận đấu.</p>
-</div>
-
 <div id="output" class="panel hidden">
-<div class="result-head">
-<div><div class="eyebrow">YOUR CALIBRATED STARTING PRESET</div><h2>Kết quả cấu hình</h2></div>
-<span class="pill">SOLO DUEL V4.2</span>
-</div>
-<p id="deviceLine"></p>
-<div id="stats" class="result-grid"></div>
-<div class="rec-card">
-<div class="rec-row">
-<div><small>ĐỀ XUẤT NÚT BẮN</small><br><strong id="fireValue">50%</strong></div>
-<div style="text-align:right"><small>HỒ SƠ</small><br><b id="profileName">Cân bằng</b></div>
-</div>
-</div>
-<div class="tip">
-<b>🧠 Hướng dẫn tinh chỉnh</b>
-<ul id="tips"></ul>
-</div>
-<div class="tip">
-<b>🎯 Hiệu chỉnh sau khi test</b>
-<p class="hint">Chọn lỗi bạn gặp trong sân tập. Công cụ chỉ chỉnh một nhóm thông số nhỏ để bạn thử lại.</p>
-<div class="field">
+<div class="result-head"><div><div class="eyebrow">YOUR SMART AIM PRESET</div><h2>Kết quả</h2></div><span class="pill">V4.3</span></div>
+<p id="deviceLine"></p><div id="stats" class="grid"></div>
+<div class="rec">NÚT BẮN<br><strong id="fireValue">48%</strong><br><small id="profileName"></small></div>
+<div class="tip"><b>Gợi ý tinh chỉnh</b><ul id="tips"></ul></div>
+<div class="tip"><b>Phản hồi sau khi test</b>
 <select id="feedback">
-<option value="overshoot">Tâm kéo quá đầu / bị lố</option>
+<option value="overshoot">Tâm bị lố đầu</option>
 <option value="undershoot">Kéo không tới đầu</option>
-<option value="slow">Lia tâm hơi chậm</option>
-<option value="shaky">Ngắm 2x/4x bị rung</option>
+<option value="slow">Lia tâm chậm</option>
+<option value="shaky">Ống ngắm bị rung</option>
 </select>
-</div>
-<button class="btn alt full" onclick="applyFeedback()">ÁP DỤNG HIỆU CHỈNH NHẸ</button>
+<button class="secondary full" style="margin-top:10px" onclick="applyFeedback()">HIỆU CHỈNH</button>
 </div>
 <div class="toolbar">
-<button class="btn alt" onclick="copyCurrent()">Sao chép</button>
-<button class="btn alt" onclick="saveCurrent()">Lưu cấu hình</button>
-<button class="btn alt" onclick="exportCurrent()">Xuất TXT</button>
+<button onclick="copyCurrent()">Sao chép</button>
+<button class="secondary" onclick="saveCurrent()">Lưu</button>
+<button class="secondary" onclick="exportCurrent()">Xuất TXT</button>
 </div>
-<p class="hint">Thông số chỉ là preset tham khảo. Hãy test và thay đổi từng 2–3 điểm mỗi lần.</p>
 </div>
 </div>
 </section>
 
 <section id="training" class="page">
-<div class="panel">
-<div class="eyebrow">LUXUBU AIM TRAINING</div>
-<h2>Khu cải thiện kỹ năng</h2>
-<p>Hoàn thành từng bài sau khi vào sân tập. Đánh dấu bài đã luyện để theo dõi tiến độ.</p>
-<div class="progress"><div id="progressBar"></div></div>
-<p id="progressText">0/6 bài hoàn thành</p>
-<div class="training" id="lessons"></div>
-<div class="toolbar"><button class="btn alt" onclick="resetLessons()">Đặt lại tiến độ</button></div>
-</div>
+<div class="panel"><div class="eyebrow">AIM TRAINING</div><h2>Khu luyện kỹ năng</h2><p id="progressText">0/6 bài hoàn thành</p><div class="progress"><div id="progressBar"></div></div><div id="lessons" class="training"></div><button class="secondary" style="margin-top:15px" onclick="resetLessons()">Đặt lại tiến độ</button></div>
 </section>
 
 <section id="history" class="page">
-<div class="panel">
-<div class="eyebrow">SAVED PRESETS</div>
-<h2>Lịch sử cấu hình</h2>
-<p>Cấu hình được lưu trên trình duyệt hiện tại.</p>
-<div class="toolbar">
-<button class="btn alt" onclick="exportHistory()">Xuất JSON</button>
-<button class="btn danger" onclick="clearHistory()">Xóa tất cả</button>
-</div>
-<div id="historyList"></div>
-</div>
+<div class="panel"><div class="eyebrow">SAVED PRESETS</div><h2>Lịch sử cấu hình</h2><button class="secondary" onclick="exportHistory()">Xuất JSON</button><button class="secondary" onclick="clearHistory()">Xóa tất cả</button><div id="historyList"></div></div>
 </section>
-
-<footer>© LUXUBU V4.2 SOLO DUEL ENGINE • Fan-made sensitivity helper • Không liên kết với Garena</footer>
+<footer>© LUXUBU V4.3 SMART SOLO AIM • Fan-made sensitivity helper</footer>
 </div>
-<div id="toast" class="toast"></div>
+<div id="toast"></div>
 
 <script>
-const deviceGroups={
+const groups={
 ios:['iPhone 7','iPhone 7 Plus','iPhone 8','iPhone 8 Plus','iPhone X','iPhone XR','iPhone XS','iPhone XS Max','iPhone 11','iPhone 11 Pro','iPhone 11 Pro Max','iPhone 12','iPhone 12 mini','iPhone 12 Pro','iPhone 12 Pro Max','iPhone 13','iPhone 13 mini','iPhone 13 Pro','iPhone 13 Pro Max','iPhone 14','iPhone 14 Plus','iPhone 14 Pro','iPhone 14 Pro Max','iPhone 15','iPhone 15 Plus','iPhone 15 Pro','iPhone 15 Pro Max','iPhone 16','iPhone 16 Plus','iPhone 16 Pro','iPhone 16 Pro Max','iPhone 17','iPhone 17 Pro','iPhone 17 Pro Max','iPad'],
 android:['Samsung Galaxy A series','Samsung Galaxy S series','Samsung Galaxy Note series','Xiaomi Redmi series','Xiaomi POCO series','Xiaomi flagship','OPPO A series','OPPO Reno series','OPPO Find series','Vivo Y series','Vivo V series','Vivo X series','Realme C series','Realme Number series','Realme GT series','OnePlus','Google Pixel','Android khác']
 };
-
 const labels=['Nhìn xung quanh','Hồng tâm','Ống ngắm 2x','Ống ngắm 4x','Súng ngắm','Camera tự do'];
 let current=null;
-
-function $(id){return document.getElementById(id)}
-function toast(s){
- $('toast').textContent=s;
- $('toast').classList.add('show');
- clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2200);
-}
-function go(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
- document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
- $('mobileNav').classList.add('hidden');
- if(id==='history')renderHistory();
- if(id==='training')renderLessons();
- window.scrollTo({top:0,behavior:'smooth'});
-}
-function toggleMenu(){$('mobileNav').classList.toggle('hidden')}
-
-function fillDevices(){
- const os=$('os').value;
- $('device').innerHTML=deviceGroups[os].map(d=>`<option>${d}</option>`).join('');
- if(os==='ios')$('device').value='iPhone 13 Pro Max';
-}
-
+const $=id=>document.getElementById(id);
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));if(id==='history')renderHistory();if(id==='training')renderLessons();window.scrollTo({top:0,behavior:'smooth'})}
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2000)}
+function fillDevices(){let os=$('os').value;$('device').innerHTML=groups[os].map(x=>`<option>${x}</option>`).join('');if(os==='ios')$('device').value='iPhone 13 Pro Max'}
 function tierFor(name,os){
- if(os==='ios'){
-  if(name==='iPad')return 5;
-  const m=name.match(/iPhone (\d+)/);
-  if(!m)return 2;
-  const n=+m[1];
-  if(n<=8)return 0;
-  if(n<=11)return 1;
-  if(n===12)return 2;
-  if(n===13)return 3;
-  if(n<=15)return 4;
-  return 5;
- }
- const n=name.toLowerCase();
- if(n.includes('s series')||n.includes('note')||n.includes('find')||n.includes('x series')||n.includes('gt')||n.includes('oneplus')||n.includes('pixel')||n.includes('flagship'))return 4;
- if(n.includes('a series')||n.includes('redmi')||n.includes('y series')||n.includes('c series'))return 1;
- if(n.includes('poco')||n.includes('reno')||n.includes('v series')||n.includes('number'))return 3;
- return 2;
+ if(os==='ios'){if(name==='iPad')return 5;let n=+(name.match(/iPhone (\d+)/)||[,13])[1];if(n<=8)return 0;if(n<=11)return 1;if(n===12)return 2;if(n===13)return 3;if(n<=15)return 4;return 5}
+ let n=name.toLowerCase();if(/s series|note|find|x series|gt|oneplus|pixel|flagship/.test(n))return 4;if(/a series|redmi|y series|c series/.test(n))return 1;if(/poco|reno|v series|number/.test(n))return 3;return 2
 }
-
-const deviceProfiles={
- ios:[
-  [147,158,148,132,59,154],
-  [151,162,151,136,61,158],
-  [155,166,155,140,63,162],
-  [158,169,158,143,65,165],
-  [160,170,159,144,66,167],
-  [161,171,160,145,67,168]
- ],
- android:[
-  [150,160,151,136,61,157],
-  [153,163,153,138,62,160],
-  [156,166,155,140,64,163],
-  [159,168,157,142,65,165],
-  [161,170,159,144,67,167],
-  [161,170,159,144,67,167]
- ]
+const profiles={
+ ios:[[147,158,148,132,59,154],[151,162,151,136,61,158],[155,166,155,140,63,162],[158,169,158,143,65,165],[160,170,159,144,66,167],[161,171,160,145,67,168]],
+ android:[[150,160,151,136,61,157],[153,163,153,138,62,160],[156,166,155,140,64,163],[159,168,157,142,65,165],[161,170,159,144,67,167],[161,170,159,144,67,167]]
 };
-
-function getDeviceBase(os,device,tier){
- let base=deviceProfiles[os][tier].slice();
- if(os==='ios' && device==='iPhone 13 Pro Max')base=[159,169,158,143,65,166];
- if(os==='ios' && device==='iPhone 13 Pro')base=[158,168,157,142,64,165];
- if(os==='ios' && device==='iPhone 7 Plus')base=[148,159,149,133,59,155];
- if(os==='ios' && device==='iPhone 14 Pro Max')base=[161,171,160,145,66,168];
- if(os==='ios' && device==='iPhone 15 Pro Max')base=[161,171,160,145,67,168];
- if(os==='ios' && device==='iPad')base=[150,160,153,140,66,156];
- return base;
+function getBase(os,d,t){
+ let b=profiles[os][t].slice();
+ if(os==='ios'){
+ if(d==='iPhone 13 Pro Max')b=[159,169,158,143,65,166];
+ if(d==='iPhone 13 Pro')b=[158,168,157,142,64,165];
+ if(d==='iPhone 7 Plus')b=[148,159,149,133,59,155];
+ if(d==='iPhone 14 Pro Max')b=[161,171,160,145,66,168];
+ if(d==='iPhone 15 Pro Max')b=[160,170,159,144,66,167];
+ if(d==='iPad')b=[150,160,153,140,66,156];
+ }return b;
 }
-
-function autoFireSize(os,device,tier,style,drag,priority){
- let screenClass=os==='ios'?(device==='iPad'?2:(/Pro Max|Plus/.test(device)?1:0)):(tier>=4?1:0);
- let size=screenClass===2?44:screenClass===1?46:48;
- if(style==='rush')size+=1;
- if(style==='control')size-=1;
- if(drag==='fast')size+=1;
- if(drag==='steady')size-=1;
- if(priority==='head')size+=1;
- if(priority==='range')size-=1;
- return Math.max(42,Math.min(52,size));
+function autoFire(os,d,t,style,drag,priority){
+ let s=os==='ios'?(d==='iPad'?44:(/Pro Max|Plus/.test(d)?46:48)):(t>=4?46:48);
+ if(style==='rush')s++;if(style==='control')s--;if(drag==='fast')s++;if(drag==='steady')s--;if(priority==='head')s++;if(priority==='range')s--;
+ return Math.max(42,Math.min(52,s));
 }
-
 function generate(){
- const os=$('os').value;
- const device=$('device').value;
- const tier=tierFor(device,os);
- const fps=+$('fps').value;
- const style=$('style').value;
- const drag=$('drag').value;
- const priority=$('priority').value;
- const base=getDeviceBase(os,device,tier);
-
- // Ưu tiên solo 1v1, giữ thông số theo từng máy.
- // Súng ngắm có thang riêng, không ép lên cùng dải 120–200.
+ const os=$('os').value,d=$('device').value,t=tierFor(d,os),fps=+$('fps').value,style=$('style').value,drag=$('drag').value,priority=$('priority').value,base=getBase(os,d,t);
  const limits=[[135,195],[145,200],[130,190],[115,180],[40,95],[130,195]];
- const duelBias=[2,7,3,0,-2,2];
-
- const fpsVec={
-  30:[-2,-2,-1,-1,0,-1],
-  60:[-1,-1,0,0,0,0],
-  90:[0,0,0,0,0,0],
-  120:[1,1,1,1,0,1]
- }[fps]||[0,0,0,0,0,0];
-
- const styleVec={
-  balanced:[0,0,0,0,0,0],
-  rush:[2,2,1,-1,-1,1],
-  control:[-2,-3,-2,2,2,-2]
- }[style];
-
- const dragVec={
-  light:[1,1,1,0,0,1],
-  steady:[-2,-2,-1,1,1,-1],
-  fast:[3,3,2,0,-1,2]
- }[drag];
-
- const priorityVec={
-  head:[1,3,2,-1,-2,1],
-  mixed:[0,0,0,0,0,0],
-  range:[-2,-3,-1,3,4,-1]
- }[priority];
-
- const randomInt=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
-
- const vals=base.map((v,i)=>{
-  const jitter=randomInt(-4,4);
-  const adjusted=v+duelBias[i]+fpsVec[i]+styleVec[i]+dragVec[i]+priorityVec[i]+jitter;
-  const [lo,hi]=limits[i];
-  return Math.max(lo,Math.min(hi,Math.round(adjusted)));
- });
-
- const fire=autoFireSize(os,device,tier,style,drag,priority);
- const profile={
-  balanced:'SOLO • Cân bằng',
-  rush:'SOLO • Áp sát nhanh',
-  control:'SOLO • Kiểm soát'
- }[style];
-
- const tips=style==='rush'
- ?['Ưu tiên kéo ngắn và dứt khoát khi áp sát; tránh vuốt quá dài.','Nếu tâm vượt qua đầu, dùng hiệu chỉnh “Tâm kéo quá đầu” một lần rồi test lại.','Giữ tâm ngang ngực trước pha kéo; đừng tăng đồng loạt mọi ống ngắm.']
- :style==='control'
- ?['Đặt tâm trước khi bắn, vuốt đều và dừng đúng nhịp.','Nếu lia ngang chậm, tăng riêng Nhìn xung quanh 2 điểm sau khi test.','Giữ 4x và Súng ngắm thấp hơn nhóm tâm gần để tránh rung.']
- :['Preset ưu tiên solo 1v1: Hồng tâm và 2x được nhấn nhẹ để hỗ trợ kéo gần.','Test 5 phút với cùng súng và khoảng cách trước khi đổi số.','Lố đầu: giảm Hồng tâm 2 điểm; kéo hụt: tăng Hồng tâm 2 điểm.'];
-
- const previous=current?.values?.join(',');
- if(previous && previous===vals.join(','))vals[1]=Math.min(limits[1][1],vals[1]+1);
-
- current={device,os,fps,style,drag,priority,values:vals,fire,profile,tips,date:new Date().toLocaleString('vi-VN')};
- renderCurrent();
- toast('Đã tạo preset SOLO KÈO theo thiết bị');
+ const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+ const roll=s=>rand(-s,s)+rand(-3,3);
+ const fpsV={30:[-3,-3,-2,-2,0,-2],60:[-1,-1,0,0,0,0],90:[0,0,0,0,0,0],120:[2,2,1,1,0,1]}[fps];
+ const styleV={balanced:[2,5,3,0,-1,2],rush:[5,8,5,1,-2,4],control:[-2,-3,-2,3,2,-2]}[style];
+ const dragV={light:[3,4,3,0,0,2],steady:[-1,-2,-1,2,1,-1],fast:[5,6,4,1,-1,4]}[drag];
+ const priorityV={head:[3,7,4,-2,-3,2],mixed:[0,1,0,0,0,0],range:[-3,-4,-2,4,5,-2]}[priority];
+ const spreads=[13,15,12,11,7,12];
+ const values=base.map((v,i)=>Math.max(limits[i][0],Math.min(limits[i][1],Math.round(v+fpsV[i]+styleV[i]+dragV[i]+priorityV[i]+roll(spreads[i])))));
+ if(current&&current.values.join(',')===values.join(','))values[1]=Math.min(200,values[1]+2);
+ const profile={balanced:'SOLO • Cân bằng thông minh',rush:'SOLO • Lia nhanh áp sát',control:'SOLO • Kiểm soát nhẹ tâm'}[style];
+ const tips=style==='rush'?['Ưu tiên lia nhanh và vuốt ngắn.','Nếu tâm vượt đầu, giảm Hồng tâm 2 điểm.','Giữ tâm ngang ngực trước khi kéo lên.']:style==='control'?['Ưu tiên thao tác đều tay.','Nếu lia ngang chậm, tăng Nhìn xung quanh 2 điểm.','Giữ nhịp kéo ổn định.']:['Preset cân bằng giữa lia tâm và kiểm soát.','Test cùng một loại súng và khoảng cách.','Nếu lố đầu giảm Hồng tâm 2 điểm; nếu hụt tăng 2 điểm.'];
+ current={device:d,os,fps,style,drag,priority,values,fire:autoFire(os,d,t,style,drag,priority),profile,tips,date:new Date().toLocaleString('vi-VN')};
+ renderCurrent();toast('Đã tạo cấu hình LUXUBU V4.3');
 }
-
 function renderCurrent(){
- if(!current)return;
  $('deviceLine').textContent=`${current.device} • ${current.os.toUpperCase()} • ${current.fps} FPS`;
  $('stats').innerHTML=current.values.map((v,i)=>`<div class="stat"><span>${labels[i]}</span><strong>${v}</strong><small>/ ${i===4?100:200}</small></div>`).join('');
- $('fireValue').textContent=current.fire+'%';
- $('profileName').textContent=current.profile;
- $('tips').innerHTML=(current.tips||['Test trong sân tập và chỉ đổi 2–3 điểm mỗi lần.']).map(t=>`<li>${t}</li>`).join('');
- $('output').classList.remove('hidden');
+ $('fireValue').textContent=current.fire+'%';$('profileName').textContent=current.profile;
+ $('tips').innerHTML=current.tips.map(x=>`<li>${x}</li>`).join('');$('output').classList.remove('hidden');
 }
-
 function applyFeedback(){
  if(!current)return toast('Hãy tạo cấu hình trước');
- const f=$('feedback').value;
- const v=current.values.slice();
-
- if(f==='overshoot'){v[1]-=3;v[2]-=2;v[0]-=1;}
- if(f==='undershoot'){v[1]+=3;v[2]+=2;}
- if(f==='slow'){v[0]+=2;v[5]+=1;v[1]+=1;}
- if(f==='shaky'){v[2]-=2;v[3]-=2;v[4]-=2;}
-
- const limits=[[135,195],[145,200],[130,190],[115,180],[40,95],[130,195]];
- current.values=v.map((x,i)=>Math.max(limits[i][0],Math.min(limits[i][1],x)));
- current.date=new Date().toLocaleString('vi-VN');
- renderCurrent();
- toast('Đã tinh chỉnh theo lỗi — test lại trong sân tập');
+ let v=current.values.slice(),f=$('feedback').value;
+ if(f==='overshoot'){v[1]-=3;v[2]-=2;v[0]-=1}
+ if(f==='undershoot'){v[1]+=3;v[2]+=2}
+ if(f==='slow'){v[0]+=2;v[5]+=1;v[1]+=1}
+ if(f==='shaky'){v[2]-=2;v[3]-=2;v[4]-=2}
+ let lim=[[135,195],[145,200],[130,190],[115,180],[40,95],[130,195]];
+ current.values=v.map((x,i)=>Math.max(lim[i][0],Math.min(lim[i][1],x)));
+ renderCurrent();toast('Đã tinh chỉnh, hãy test lại');
 }
-
-function resetCreator(){
- $('os').value='ios';
- fillDevices();
- $('device').value='iPhone 13 Pro Max';
- $('fps').value='90';
- $('style').value='balanced';
- $('drag').value='light';
- $('priority').value='mixed';
- $('output').classList.add('hidden');
- current=null;
- toast('Đã đặt lại bộ tạo');
-}
-
-function presetText(x){
- return `LUXUBU V4.2 SOLO DUEL — ${x.device}
-${x.os.toUpperCase()} • ${x.fps} FPS • ${x.profile}
-${x.values.map((v,i)=>labels[i]+': '+v).join('\n')}
-Nút bắn: ${x.fire}%
-Lưu ý: preset tham khảo, cần test thực tế.`;
-}
-
-function copyCurrent(){
- if(!current)return;
- navigator.clipboard?.writeText(presetText(current))
- .then(()=>toast('Đã sao chép!'))
- .catch(()=>fallbackCopy(presetText(current)))||fallbackCopy(presetText(current));
-}
-
-function fallbackCopy(t){
- let a=document.createElement('textarea');
- a.value=t;
- document.body.append(a);
- a.select();
- document.execCommand('copy');
- a.remove();
- toast('Đã sao chép!');
-}
-
-function getHistory(){
- try{return JSON.parse(localStorage.getItem('luxubuV4History')||'[]')}
- catch{return []}
-}
-
-function saveCurrent(){
- if(!current)return;
- let a=getHistory();
- a.unshift({...current,id:Date.now()});
- localStorage.setItem('luxubuV4History',JSON.stringify(a.slice(0,30)));
- toast('Đã lưu cấu hình');
-}
-
-function download(name,data,type){
- let u=URL.createObjectURL(new Blob([data],{type}));
- let a=document.createElement('a');
- a.href=u;
- a.download=name;
- a.click();
- setTimeout(()=>URL.revokeObjectURL(u),1000);
-}
-
-function exportCurrent(){
- if(current)download('luxubu-v4-preset.txt',presetText(current),'text/plain;charset=utf-8');
-}
-
-function exportHistory(){
- let a=getHistory();
- if(!a.length)return toast('Chưa có cấu hình để xuất');
- download('luxubu-v4-history.json',JSON.stringify(a,null,2),'application/json');
-}
-
+function resetCreator(){$('os').value='ios';fillDevices();$('fps').value='90';$('style').value='balanced';$('drag').value='light';$('priority').value='mixed';$('output').classList.add('hidden');current=null;toast('Đã đặt lại')}
+function presetText(x){return 'LUXUBU V4.3 — '+x.device+'\n'+x.os.toUpperCase()+' • '+x.fps+' FPS\n'+x.values.map((v,i)=>labels[i]+': '+v).join('\n')+'\nNút bắn: '+x.fire+'%'}
+function copyText(s){if(navigator.clipboard?.writeText)navigator.clipboard.writeText(s).then(()=>toast('Đã sao chép')).catch(()=>fallbackCopy(s));else fallbackCopy(s)}
+function fallbackCopy(s){let a=document.createElement('textarea');a.value=s;document.body.append(a);a.select();document.execCommand('copy');a.remove();toast('Đã sao chép')}
+function copyCurrent(){if(current)copyText(presetText(current))}
+function getHistory(){try{return JSON.parse(localStorage.getItem('luxubu43')||'[]')}catch(e){return []}}
+function saveCurrent(){if(!current)return;let a=getHistory();a.unshift({...current,id:Date.now()});localStorage.setItem('luxubu43',JSON.stringify(a.slice(0,30)));toast('Đã lưu cấu hình')}
+function download(name,data,type){let u=URL.createObjectURL(new Blob([data],{type})),a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+function exportCurrent(){if(current)download('luxubu-v4.3.txt',presetText(current),'text/plain;charset=utf-8')}
 function renderHistory(){
- let a=getHistory();
- $('historyList').innerHTML=a.length?a.map(x=>`
- <div class="history-item">
- <b>${x.device}</b>
- <p>${x.date} • ${x.os.toUpperCase()} • ${x.fps} FPS • Nút bắn ${x.fire}%</p>
- <p>${x.values.map((v,i)=>labels[i]+': '+v).join(' • ')}</p>
- <div class="toolbar">
- <button class="btn alt" onclick="loadPreset(${x.id})">Nạp lại</button>
- <button class="btn alt" onclick="copyPreset(${x.id})">Sao chép</button>
- <button class="btn danger" onclick="deletePreset(${x.id})">Xóa</button>
- </div>
- </div>`).join(''):'<p style="margin-top:14px">Chưa có cấu hình nào được lưu.</p>';
+ let a=getHistory();$('historyList').innerHTML=a.length?a.map(x=>`<div class="history-item"><b>${x.device}</b><p>${x.date} • ${x.fps} FPS • Nút bắn ${x.fire}%</p><p>${x.values.map((v,i)=>labels[i]+': '+v).join(' • ')}</p><button class="secondary" onclick="loadPreset(${x.id})">Nạp lại</button><button class="secondary" onclick="deletePreset(${x.id})">Xóa</button></div>`).join(''):'<p>Chưa có cấu hình được lưu.</p>';
 }
-
-function loadPreset(id){
- let x=getHistory().find(v=>v.id===id);
- if(!x)return;
- current=x;
- $('os').value=x.os;
- fillDevices();
- $('device').value=x.device;
- $('fps').value=x.fps;
- $('style').value=x.style;
- $('drag').value=x.drag;
- $('priority').value=x.priority;
- current={...x};
- renderCurrent();
- go('creator');
- toast('Đã nạp lại cấu hình');
-}
-
-function copyPreset(id){
- let x=getHistory().find(v=>v.id===id);
- if(x)fallbackCopy(presetText(x));
-}
-
-function deletePreset(id){
- localStorage.setItem('luxubuV4History',JSON.stringify(getHistory().filter(x=>x.id!==id)));
- renderHistory();
- toast('Đã xóa cấu hình');
-}
-
-function clearHistory(){
- if(confirm('Xóa toàn bộ lịch sử cấu hình?')){
-  localStorage.removeItem('luxubuV4History');
-  renderHistory();
-  toast('Đã xóa lịch sử');
- }
-}
-
-const lessonData=[
- ['Kéo tâm lên đầu','Đặt tâm ngang ngực, vuốt ngắn lên vùng đầu trong 2 phút.'],
- ['One Tap','Bắn từng phát, ưu tiên nhịp dừng và độ chính xác.'],
- ['Drag Headshot','Luyện vuốt ngắn, đều tay; tránh kéo quá dài.'],
- ['Tracking','Theo tâm vào mục tiêu đang di chuyển mà không giật tay.'],
- ['Movement','Kết hợp di chuyển ngang, dừng nhịp và đặt tâm trước.'],
- ['Solo 1v1','Áp dụng trong trận tập; xem lại lỗi lố tâm hoặc hụt tâm.']
-];
-
+function loadPreset(id){let x=getHistory().find(v=>v.id===id);if(!x)return;current=x;$('os').value=x.os;fillDevices();$('device').value=x.device;$('fps').value=x.fps;$('style').value=x.style;$('drag').value=x.drag;$('priority').value=x.priority;renderCurrent();go('creator')}
+function deletePreset(id){localStorage.setItem('luxubu43',JSON.stringify(getHistory().filter(x=>x.id!==id)));renderHistory()}
+function clearHistory(){if(confirm('Xóa toàn bộ lịch sử?')){localStorage.removeItem('luxubu43');renderHistory()}}
+function exportHistory(){let a=getHistory();if(a.length)download('luxubu-history.json',JSON.stringify(a,null,2),'application/json');else toast('Chưa có dữ liệu')}
+const lessonData=[['Kéo tâm lên đầu','Đặt tâm ngang ngực, vuốt ngắn lên vùng đầu trong 2 phút.'],['One Tap','Bắn từng phát, luyện nhịp dừng và độ chính xác.'],['Drag Headshot','Luyện vuốt ngắn, đều tay; tránh kéo quá dài.'],['Tracking','Theo tâm vào mục tiêu đang di chuyển.'],['Movement','Kết hợp di chuyển ngang và đặt tâm trước.'],['Solo 1v1','Áp dụng trong trận tập và xem lại lỗi kéo tâm.']];
 function renderLessons(){
  let done=JSON.parse(localStorage.getItem('luxubuLessons')||'[]');
- $('lessons').innerHTML=lessonData.map((l,i)=>`
- <div class="lesson">
- <div class="num">BÀI ${String(i+1).padStart(2,'0')}</div>
- <h3>${l[0]}</h3>
- <p>${l[1]}</p>
- <label><input type="checkbox" ${done.includes(i)?'checked':''} onchange="toggleLesson(${i},this.checked)"> Đã hoàn thành</label>
- </div>`).join('');
- updateProgress(done);
+ $('lessons').innerHTML=lessonData.map((x,i)=>`<div class="lesson"><b>BÀI ${i+1}</b><h3>${x[0]}</h3><p>${x[1]}</p><label><input type="checkbox" ${done.includes(i)?'checked':''} onchange="toggleLesson(${i},this.checked)"> Đã hoàn thành</label></div>`).join('');
+ $('progressBar').style.width=(done.length/6*100)+'%';$('progressText').textContent=done.length+'/6 bài hoàn thành';
 }
-
-function toggleLesson(i,on){
- let a=JSON.parse(localStorage.getItem('luxubuLessons')||'[]');
- a=on?[...new Set([...a,i])]:a.filter(x=>x!==i);
- localStorage.setItem('luxubuLessons',JSON.stringify(a));
- updateProgress(a);
-}
-
-function updateProgress(a){
- $('progressBar').style.width=(a.length/6*100)+'%';
- $('progressText').textContent=`${a.length}/6 bài hoàn thành`;
-}
-
-function resetLessons(){
- localStorage.removeItem('luxubuLessons');
- renderLessons();
- toast('Đã đặt lại tiến độ');
-}
-
-fillDevices();
-renderLessons();
+function toggleLesson(i,on){let a=JSON.parse(localStorage.getItem('luxubuLessons')||'[]');a=on?[...new Set([...a,i])]:a.filter(x=>x!==i);localStorage.setItem('luxubuLessons',JSON.stringify(a));renderLessons()}
+function resetLessons(){localStorage.removeItem('luxubuLessons');renderLessons()}
+fillDevices();renderLessons();
 </script>
 </body>
 </html>
